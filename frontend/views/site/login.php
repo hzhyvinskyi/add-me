@@ -13,7 +13,12 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+	<p>Please fill out the following fields to login or sign-in with following services:</p>
+
+	<?= yii\authclient\widgets\AuthChoice::widget([
+		'baseAuthUrl' => ['site/auth'],
+		'popupMode' => false,
+	]) ?>
 
     <div class="row">
         <div class="col-lg-5">
