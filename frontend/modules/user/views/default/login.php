@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<p>Please fill out the following fields to login or sign-in with following services:</p>
 
 	<?= yii\authclient\widgets\AuthChoice::widget([
-		'baseAuthUrl' => ['site/auth'],
+		'baseAuthUrl' => ['/user/default/auth'],
 		'popupMode' => false,
 	]) ?>
 
