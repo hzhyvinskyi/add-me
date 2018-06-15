@@ -4,9 +4,10 @@
 /* @var $user \frontend\models\User */
 
 use yii\helpers\Html;
+use yii\helpers\HtmlPurifier;
 
 $this->title = $user->username;
 ?>
 
-<p>Hello!</p>
-<p>It's <?= Html::encode($user->username) ?>'s page!</p>
+<h3><?= Html::encode($user->username) ?></h3>
+<p><?= HtmlPurifier::process($user->about) ?></p>

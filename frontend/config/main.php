@@ -47,6 +47,7 @@ return [
             'showScriptName' => false,
 			'hostInfo' => 'http://add-me.com',
             'rules' => [
+                'profile/<nickname:\w+>' => '/user/profile/view',
             ],
         ],
     ],

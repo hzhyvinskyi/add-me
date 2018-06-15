@@ -20,7 +20,7 @@ $this->title = 'Social networking service';
     <div class="body-content">
 
         <?php foreach ($users as $user): ?>
-			<a href="<?= Url::to(['/user/profile/view', 'id' => $user->id]) ?>">
+			<a href="<?= Url::to(['/user/profile/view', 'nickname' => $user->getNickname()]) ?>">
 				<?= $user->username ?>
 			</a>
 			<hr>
