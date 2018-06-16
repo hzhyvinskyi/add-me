@@ -1,9 +1,10 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $users \frontend\models\User */
+/* @var $users[] \frontend\models\User */
 
 use yii\helpers\Url;
+use yii\helpers\Html;
 
 $this->title = 'Social networking service';
 ?>
@@ -21,7 +22,7 @@ $this->title = 'Social networking service';
 
         <?php foreach ($users as $user): ?>
 			<a href="<?= Url::to(['/user/profile/view', 'nickname' => $user->getNickname()]) ?>">
-				<?= $user->username ?>
+				<?= Html::encode($user->username) ?>
 			</a>
 			<hr>
 		<?php endforeach; ?>
