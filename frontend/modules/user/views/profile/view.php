@@ -16,39 +16,48 @@ $this->title = $user->username;
 
 <hr>
 
-<a href="<?= Url::to(['/user/profile/subscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
-	Subscribe
-</a>
-<a href="<?= Url::to(['/user/profile/unsubscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
-	Unsubscribe
-</a>
+<?php if ($currentUser && !$user->equals($currentUser)): ?>
+	<?php if (!$currentUser->isFollowing($user)): ?>
+		<a href="<?= Url::to(['/user/profile/subscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
+			Subscribe
+		</a>
+	<?php else: ?>
+		<a href="<?= Url::to(['/user/profile/unsubscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
+			Unsubscribe
+		</a>
+	<?php endif; ?>
 
-<hr>
+	<hr>
 
-<?php if ($currentUser && $currentUser->getMutualSubscriptionsTo($user) && $currentUser->id !== $user->id): ?>
-	<p>Friends, who are also following <?= Html::encode($user->username) ?>:</p>
-	<div class="row">
-		<?php foreach ($currentUser->getMutualSubscriptionsTo($user) as $follower): ?>
-			<?php if ($currentUser->username !== $follower['username']): ?>
+	<?php if ($currentUser->getMutualSubscriptionsTo($user)): ?>
+		<p>Friends, who are also following <?= Html::encode($user->username) ?>:</p>
+		<div class="row">
+			<?php foreach ($currentUser->getMutualSubscriptionsTo($user) as $follower): ?>
 				<div class="col-md-12">
-					<?= Html::encode($follower['username']) ?>
+					<a href="<?= Url::to(['/user/profile/view', 'nickname' => ($follower['nickname'] ? $follower['nickname'] : $follower['id'])]) ?>">
+						<?= Html::encode($follower['username']) ?>
+					</a>
 					<br>
 				</div>
-			<?php endif; ?>
-		<?php endforeach; ?>
-	</div>
-	<hr>
+			<?php endforeach; ?>
+		</div>
+		<hr>
+	<?php endif; ?>
 <?php endif; ?>
 
-<!-- Button trigger subscriptions modal -->
-<button type="button" data-toggle="modal" data-target="#subsModal">
-	following:<?= $user->countSubscriptions() ?>
-</button>
+<?php if ($user->countSubscriptions()): ?>
+	<!-- Button trigger subscriptions modal -->
+	<button type="button" data-toggle="modal" data-target="#subsModal">
+		following:<?= $user->countSubscriptions() ?>
+	</button>
+<?php endif; ?>
 
-<!-- Button trigger followers modal -->
-<button type="button" data-toggle="modal" data-target="#follModal">
-	followers:<?= $user->countFollowers() ?>
-</button>
+<?php if ($user->countFollowers()): ?>
+	<!-- Button trigger followers modal -->
+	<button type="button" data-toggle="modal" data-target="#follModal">
+		followers:<?= $user->countFollowers() ?>
+	</button>
+<?php endif; ?>
 
 <!-- Subscriptions modal -->
 <div class="modal fade" id="subsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

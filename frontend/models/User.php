@@ -298,4 +298,17 @@ class User extends ActiveRecord implements IdentityInterface
         return parent::find()->select('id, username, nickname')->where(['id' => $ids])
             ->orderBy('username')->asArray()->all();
     }
+
+    /**
+     * Checks is given user the follower of current user
+     * @param User $user
+     * @return mixed
+     */
+    public function isFollowing(User $user)
+    {
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+
+        return $redis->sismember("user:{$this->getId()}:subscriptions", $user->getId());
+    }
 }
