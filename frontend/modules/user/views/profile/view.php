@@ -12,42 +12,52 @@ use dosamigos\fileupload\FileUpload;
 
 $this->title = $user->username;
 ?>
+<div class="alert alert-success display-none" id="profile-picture-success">Profile image has been updated</div>
+<div class="alert alert-danger display-none" id="profile-picture-fail"></div>
 
 <h3><?= Html::encode($user->username) ?></h3>
 <p><?= HtmlPurifier::process($user->about) ?></p>
 
 <hr>
 
-<img src="<?= $user->getPicture() ?>">
+<img src="<?= $user->getPicture() ?>" id="profile-picture"/>
 
-<?= FileUpload::widget([
-    'model' => $modelPicture,
-    'attribute' => 'picture',
-    'url' => ['/user/profile/upload-picture'],
-    'options' => ['accept' => 'image/*'],
-    'clientEvents' => [
-        'fileuploaddone' => 'function(e, data) {
-                                console.log(e);
-                                console.log(data);
-                            }',
-    ],
-]); ?>
+<?php if ($currentUser && $user->equals($currentUser)): ?>
+	<?= FileUpload::widget([
+		'model' => $modelPicture,
+		'attribute' => 'picture',
+		'url' => ['/user/profile/upload-picture'],
+		'options' => ['accept' => 'image/*'],
+		'clientEvents' => [
+			'fileuploaddone' => 'function(e, data) {
+				if (data.result.success) {
+					$("#profile-picture-success").show();
+					$("#profile-picture-fail").hide();
+					$("#profile-picture").attr("src", data.result.pictureUri);
+				} else {
+					$("#profile-picture-fail").html(data.result.errors.picture).show();
+					$("#profile-picture-success").hide();
+				}
+			}',
+		],
+	]); ?>
+<?php endif; ?>
+
+<hr>
+
+<?php if (!$currentUser || !$currentUser->isFollowing($user)): ?>
+	<a href="<?= Url::to(['/user/profile/subscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
+		Subscribe
+	</a>
+<?php else: ?>
+	<a href="<?= Url::to(['/user/profile/unsubscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
+		Unsubscribe
+	</a>
+<?php endif; ?>
 
 <hr>
 
 <?php if ($currentUser && !$user->equals($currentUser)): ?>
-	<?php if (!$currentUser->isFollowing($user)): ?>
-		<a href="<?= Url::to(['/user/profile/subscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
-			Subscribe
-		</a>
-	<?php else: ?>
-		<a href="<?= Url::to(['/user/profile/unsubscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
-			Unsubscribe
-		</a>
-	<?php endif; ?>
-
-	<hr>
-
 	<?php if ($currentUser->getMutualSubscriptionsTo($user)): ?>
 		<p>Friends, who are also following <?= Html::encode($user->username) ?>:</p>
 		<div class="row">
@@ -66,14 +76,14 @@ $this->title = $user->username;
 
 <?php if ($user->countSubscriptions()): ?>
 	<!-- Button trigger subscriptions modal -->
-	<button type="button" data-toggle="modal" data-target="#subsModal">
+	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#subsModal">
 		following:<?= $user->countSubscriptions() ?>
 	</button>
 <?php endif; ?>
 
 <?php if ($user->countFollowers()): ?>
 	<!-- Button trigger followers modal -->
-	<button type="button" data-toggle="modal" data-target="#follModal">
+	<button type="button" class="btn btn-default" data-toggle="modal" data-target="#follModal">
 		followers:<?= $user->countFollowers() ?>
 	</button>
 <?php endif; ?>
