@@ -3,16 +3,35 @@
 /* @var $this \yii\web\View */
 /* @var $user \frontend\models\User */
 /* @var $currentUser \frontend\models\User */
+/* @var $modelPicture \frontend\models\User */
 
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Url;
+use dosamigos\fileupload\FileUpload;
 
 $this->title = $user->username;
 ?>
 
 <h3><?= Html::encode($user->username) ?></h3>
 <p><?= HtmlPurifier::process($user->about) ?></p>
+
+<hr>
+
+<img src="<?= $user->getPicture() ?>">
+
+<?= FileUpload::widget([
+    'model' => $modelPicture,
+    'attribute' => 'picture',
+    'url' => ['/user/profile/upload-picture'],
+    'options' => ['accept' => 'image/*'],
+    'clientEvents' => [
+        'fileuploaddone' => 'function(e, data) {
+                                console.log(e);
+                                console.log(data);
+                            }',
+    ],
+]); ?>
 
 <hr>
 

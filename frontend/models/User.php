@@ -5,7 +5,6 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
-use yii\db\Connection;
 use yii\web\IdentityInterface;
 
 /**
@@ -310,5 +309,16 @@ class User extends ActiveRecord implements IdentityInterface
         $redis = Yii::$app->redis;
 
         return $redis->sismember("user:{$this->getId()}:subscriptions", $user->getId());
+    }
+
+    /**
+     * Gets profile picture
+     * @return mixed
+     */
+    public function getPicture()
+    {
+        if ($this->picture) {
+            return Yii::$app->storage->getFile($this->picture);
+        }
     }
 }
