@@ -22,6 +22,8 @@ $this->title = $user->username;
 
 <img src="<?= $user->getPicture() ?>" id="profile-picture"/>
 
+<br><br>
+
 <?php if ($currentUser && $user->equals($currentUser)): ?>
 	<?= FileUpload::widget([
 		'model' => $modelPicture,
@@ -41,23 +43,24 @@ $this->title = $user->username;
 			}',
 		],
 	]); ?>
+
+	<a href="<?= Url::to(['/user/profile/delete-picture']) ?>" class="btn btn-danger">Delete picture</a>
+
 <?php endif; ?>
 
 <hr>
 
-<?php if (!$currentUser || !$currentUser->isFollowing($user)): ?>
-	<a href="<?= Url::to(['/user/profile/subscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
-		Subscribe
-	</a>
-<?php else: ?>
-	<a href="<?= Url::to(['/user/profile/unsubscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
-		Unsubscribe
-	</a>
-<?php endif; ?>
-
-<hr>
-
-<?php if ($currentUser && !$user->equals($currentUser)): ?>
+<?php if ($currentUser && !$currentUser->equals($user)): ?>
+	<?php if (!$currentUser->isFollowing($user)): ?>
+		<a href="<?= Url::to(['/user/profile/subscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
+			Subscribe
+		</a>
+	<?php else: ?>
+		<a href="<?= Url::to(['/user/profile/unsubscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
+			Unsubscribe
+		</a>
+	<?php endif; ?>
+	<hr>
 	<?php if ($currentUser->getMutualSubscriptionsTo($user)): ?>
 		<p>Friends, who are also following <?= Html::encode($user->username) ?>:</p>
 		<div class="row">
