@@ -1,9 +1,11 @@
 <?php
 namespace frontend\modules\post\controllers;
 
+use frontend\models\User;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use yii\web\Response;
 use yii\web\UploadedFile;
 use frontend\models\Post;
 use frontend\modules\post\models\forms\PostForm;
@@ -48,9 +50,67 @@ class DefaultController extends Controller
      */
     public function actionView($id)
     {
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
         return $this->render('view', [
             'post' => $this->getPostId($id),
+            'currentUser' => $currentUser,
         ]);
+    }
+
+    /**
+     * @return array|Response
+     * @throws NotFoundHttpException
+     */
+    public function actionLike()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
+        $id = Yii::$app->request->post('id');
+
+        $post = $this->getPostId($id);
+
+        $post->like($currentUser);
+
+        return [
+            'success' => true,
+            'likesCount' => $post->countLikes(),
+        ];
+    }
+
+    /**
+     * @return array|Response
+     * @throws NotFoundHttpException
+     */
+    public function actionUnlike()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
+        $id = Yii::$app->request->post('id');
+
+        $post = $this->getPostId($id);
+
+        $post->unlike($currentUser);
+
+        return [
+            'success' => true,
+            'likesCount' => $post->countLikes(),
+        ];
     }
 
     /**

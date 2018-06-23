@@ -2,6 +2,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\redis\Connection;
 
 /**
  * This is the model class for table "post".
@@ -37,6 +38,56 @@ class Post extends \yii\db\ActiveRecord
     }
 
     /**
+     * Likes current post by given user
+     * @param User $user
+     */
+    public function like(User $user)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        $redis->sadd("post:{$this->getId()}:likes", $user->getId());
+        $redis->sadd("user:{$user->getId()}:likes", $this->getId());
+    }
+
+    /**
+     * Unlikes current post by given user
+     * @param User $user
+     */
+    public function unlike(User $user)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        $redis->srem("post:{$this->getId()}:likes", $user->getId());
+        $redis->srem("user:{$user->getId()}:likes", $this->getId());
+    }
+
+    /**
+     * @return mixed
+     */
+    public function countLikes()
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        return $redis->scard("post:{$this->getId()}:likes");
+    }
+
+    /**
+     * Checks is currentUser liked this post
+     * @param User $user
+     * @return mixed
+     */
+    public function isLikedBy(User $user)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        return $redis->sismember("post:{$this->getId()}:likes", $user->getId());
+    }
+
+    /**
      * @return mixed
      */
     public function getImage()
@@ -51,5 +102,13 @@ class Post extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 }
