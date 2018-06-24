@@ -52,6 +52,8 @@ return [
             'rules' => [
                 'profile/<nickname:\w+>' => 'user/profile/view',
                 'post/<id:\d+>' => 'post/default/view',
+                'post/edit-comment/<id:\d+>' => 'post/default/edit-comment',
+                'post/delete-comment/<id:\d+>' => 'post/default/delete-comment',
             ],
         ],
         'storage' => [

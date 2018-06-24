@@ -3,6 +3,7 @@ namespace frontend\models;
 
 use Yii;
 use yii\redis\Connection;
+use yii\web\NotFoundHttpException;
 
 /**
  * This is the model class for table "post".
@@ -88,11 +89,33 @@ class Post extends \yii\db\ActiveRecord
     }
 
     /**
+     * @param $id
+     * @return Post|null
+     * @throws NotFoundHttpException
+     */
+    public static function getPostById($id)
+    {
+        if ($post = parent::findOne($id)) {
+            return $post;
+        }
+
+        throw new NotFoundHttpException();
+    }
+
+    /**
      * @return mixed
      */
     public function getImage()
     {
         return Yii::$app->storage->getFile($this->filename);
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -102,13 +125,5 @@ class Post extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
-    }
-
-    /**
-     * @return int
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 }

@@ -1,14 +1,16 @@
 <?php
 namespace frontend\modules\post\controllers;
 
-use frontend\models\User;
 use Yii;
 use yii\web\Controller;
-use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
+use yii\web\NotFoundHttpException;
+use frontend\models\User;
 use frontend\models\Post;
+use frontend\models\Comment;
 use frontend\modules\post\models\forms\PostForm;
+use frontend\modules\post\models\forms\CommentForm;
 
 /**
  * Default controller for the `post` module
@@ -53,9 +55,25 @@ class DefaultController extends Controller
         /* @var $currentUser User */
         $currentUser = Yii::$app->user->identity;
 
+        $comments = Comment::getCommentsByPostId($id);
+
+        $post = Post::getPostById($id);
+
+        if (!Yii::$app->user->isGuest) {
+            $model = new CommentForm($post, $currentUser);
+
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                Yii::$app->session->setFlash('success', 'Comment has been added');
+
+                return $this->refresh();
+            }
+        }
+
         return $this->render('view', [
-            'post' => $this->getPostId($id),
             'currentUser' => $currentUser,
+            'comments' => $comments,
+            'post' => $post,
+            'model' => isset($model) ? $model : null,
         ]);
     }
 
@@ -76,7 +94,7 @@ class DefaultController extends Controller
 
         $id = Yii::$app->request->post('id');
 
-        $post = $this->getPostId($id);
+        $post = Post::getPostById($id);
 
         $post->like($currentUser);
 
@@ -103,7 +121,7 @@ class DefaultController extends Controller
 
         $id = Yii::$app->request->post('id');
 
-        $post = $this->getPostId($id);
+        $post = Post::getPostById($id);
 
         $post->unlike($currentUser);
 
@@ -115,15 +133,67 @@ class DefaultController extends Controller
 
     /**
      * @param $id
-     * @return Post|null
+     * @return string|Response
      * @throws NotFoundHttpException
      */
-    private function getPostId($id)
+    public function actionEditComment($id)
     {
-        if ($post = Post::findOne($id)) {
-            return $post;
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
         }
 
-        throw new NotFoundHttpException();
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
+        $comment = Comment::getCommentById($id);
+
+        $post = Post::getPostById($comment->post_id);
+
+        $model = new CommentForm($post, $currentUser);
+
+        if ($currentUser->getId() === $comment->user_id) {
+            if ($model->load(Yii::$app->request->post()) && $model->saveEditedComment($comment)) {
+                Yii::$app->session->setFlash('success', 'Comment edited');
+
+                return $this->redirect(['/post/default/view', 'id' => $post->getId()]);
+            }
+        } else {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->render('editComment', [
+            'currentUser' => $currentUser,
+            'model' => $model,
+            'comment' => $comment,
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return Response
+     * @throws NotFoundHttpException
+     */
+    public function actionDeleteComment($id)
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
+        $model = new Comment();
+
+        $comment = $model::getCommentById($id);
+
+        $post = Post::getPostById($comment->post_id);
+
+        if ($currentUser->getId() === $post->user_id && $model->deleteComment($comment)) {
+            Yii::$app->session->setFlash('success', 'Comment deleted');
+
+            return $this->redirect(['/post/default/view', 'id' => $post->getId()]);
+        } else {
+            throw new NotFoundHttpException();
+        }
     }
 }
