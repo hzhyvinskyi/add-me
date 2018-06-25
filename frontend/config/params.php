@@ -1,11 +1,19 @@
 <?php
 return [
     'adminEmail' => 'admin@example.com',
+
     'maxFileSize' => 1024 * 1024 * 2,
+    'minFileSize' => 1024 * 50,
     'storagePath' => '@frontend/web/uploads/',
     'storageUri' => '/uploads/',
-    'profilePictureParams' => [
-        'maxWidth' => 300,
-        'maxHeight' => 300,
+
+    'profilePicture' => [
+        'maxWidth' => 230,
+        'maxHeight' => 230,
+    ],
+
+    'postPicture' => [
+        'maxWidth' => 750,
+        'maxHeight' => 750,
     ],
 ];

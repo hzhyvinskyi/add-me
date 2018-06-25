@@ -14,7 +14,7 @@ use yii\bootstrap\ActiveForm;
 
 		<?php $form = ActiveForm::begin() ?>
 
-			<?= $form->field($model, 'text')->textarea(['rows' => 10, 'value' => $comment->text])->label('Edit a comment') ?>
+			<?= $form->field($model, 'text')->textarea(['rows' => 8, 'value' => $comment->text])->label('Edit a comment') ?>
 
 			<?= Html::submitButton('Save changes', ['class' => 'btn btn-success']) ?>
 

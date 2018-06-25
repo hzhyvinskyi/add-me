@@ -22,9 +22,10 @@ $this->title = $user->username;
 
 <img src="<?= $user->getPicture() ?>" id="profile-picture"/>
 
-<br><br>
+<br>
 
 <?php if ($currentUser && $user->equals($currentUser)): ?>
+	<br>
 	<?= FileUpload::widget([
 		'model' => $modelPicture,
 		'attribute' => 'picture',
@@ -65,12 +66,14 @@ $this->title = $user->username;
 		<p>Friends, who are also following <?= Html::encode($user->username) ?>:</p>
 		<div class="row">
 			<?php foreach ($currentUser->getMutualSubscriptionsTo($user) as $follower): ?>
-				<div class="col-md-12">
-					<a href="<?= Url::to(['/user/profile/view', 'nickname' => ($follower['nickname'] ? $follower['nickname'] : $follower['id'])]) ?>">
-						<?= Html::encode($follower['username']) ?>
-					</a>
-					<br>
-				</div>
+				<?php if ($follower['id'] != $currentUser->getId()): ?>
+					<div class="col-md-12">
+						<a href="<?= Url::to(['/user/profile/view', 'nickname' => ($follower['nickname'] ? $follower['nickname'] : $follower['id'])]) ?>">
+							<?= Html::encode($follower['username']) ?>
+						</a>
+						<br>
+					</div>
+				<?php endif; ?>
 			<?php endforeach; ?>
 		</div>
 		<hr>

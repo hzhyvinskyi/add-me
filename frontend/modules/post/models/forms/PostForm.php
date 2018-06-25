@@ -5,6 +5,7 @@ use Yii;
 use yii\base\Model;
 use frontend\models\Post;
 use frontend\models\User;
+use Intervention\Image\ImageManager;
 
 class PostForm extends Model
 {
@@ -12,6 +13,7 @@ class PostForm extends Model
 
     public $picture;
     public $description;
+
     private $user;
 
     public function rules()
@@ -22,6 +24,7 @@ class PostForm extends Model
                 'extensions' => ['jpg', 'png'],
                 'checkExtensionByMimeType' => true,
                 'maxSize' => $this->getMaxFileSize(),
+                'minSize' => $this->getMinFileSize(),
             ],
             [['description'], 'string', 'max' => self::MAX_DESCRIPTION_LENGTH],
         ];
@@ -34,6 +37,33 @@ class PostForm extends Model
     public function __construct(User $user)
     {
         $this->user = $user;
+
+        $this->on(self::EVENT_AFTER_VALIDATE, [$this, 'resizePicture']);
+    }
+
+    /**
+     * Resizes picture if necessary
+     */
+    public function resizePicture()
+    {
+        if ($this->picture->error) {
+            return;
+        }
+
+        $width = Yii::$app->params['postPicture']['maxWidth'];
+        $height = Yii::$app->params['postPicture']['maxHeight'];
+
+        $manager = new ImageManager(['driver' => 'imagick']);
+
+        $img = $manager->make($this->picture->tempName);
+
+        $img->resize($width, $height, function($constraint) {
+            // Preserve proportions
+            $constraint->aspectRatio();
+
+            // Prevent possible upsizing
+            $constraint->upsize();
+        })->save();
     }
 
     /**
@@ -60,5 +90,14 @@ class PostForm extends Model
     private function getMaxFileSize()
     {
         return Yii::$app->params['maxFileSize'];
+    }
+
+    /**
+     * Gets min size of the uploaded file
+     * @return mixed
+     */
+    private function getMinFileSize()
+    {
+        return Yii::$app->params['minFileSize'];
     }
 }

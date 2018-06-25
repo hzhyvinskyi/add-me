@@ -22,7 +22,7 @@ use yii\bootstrap\ActiveForm;
         </div>
 
         <div class="col-md-8">
-            <img style="width:100%;" src="<?= Html::encode($post->getImage()) ?>">
+            <img class="post-picture" src="<?= Html::encode($post->getImage()) ?>">
         </div>
 
         <div class="col-md-8">
@@ -114,7 +114,7 @@ use yii\bootstrap\ActiveForm;
 			<?php if ($currentUser): ?>
 
 				<?php $form = ActiveForm::begin() ?>
-					<?= $form->field($model, 'text')->textarea(['rows' => 10])->label('Leave a comment') ?>
+					<?= $form->field($model, 'text')->textarea(['rows' => 8])->label('Leave a comment') ?>
 					<?= Html::submitButton('Comment on this post', ['class' => 'btn btn-success']) ?>
 				<?php ActiveForm::end() ?>
 
