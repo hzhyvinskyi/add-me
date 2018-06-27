@@ -119,6 +119,42 @@ class Post extends \yii\db\ActiveRecord
     }
 
     /**
+     * Finds current user's posts if they exists
+     * @param $id
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function findCurrentUserPosts($id)
+    {
+        return parent::find()->where(['user_id' => $id])->all();
+    }
+
+    /**
+     * Increases comment count in current post
+     * @param $post_id
+     * @return mixed
+     */
+    public static function incrPostCommentCount($post_id)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        return $redis->incr("post:{$post_id}:comments");
+    }
+
+    /**
+     * Decreases comment count in current post
+     * @param $post_id
+     * @return mixed
+     */
+    public static function decrPostCommentCount($post_id)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        return $redis->decr("post:{$post_id}:comments");
+    }
+
+    /**
      * Gets author of the post
      * @return \yii\db\ActiveQuery
      */

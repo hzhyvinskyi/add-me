@@ -8,6 +8,7 @@ use yii\web\NotFoundHttpException;
 use frontend\modules\user\models\forms\PictureForm;
 use yii\web\UploadedFile;
 use yii\web\Response;
+use frontend\models\Post;
 
 class ProfileController extends Controller
 {
@@ -22,10 +23,13 @@ class ProfileController extends Controller
 
 	    $modelPicture = new PictureForm();
 
+	    $currentUserPosts = Post::findCurrentUserPosts($currentUser->getId());
+
 	    return $this->render('view', [
 	        'user' => $this->findUser($nickname),
             'currentUser' => $currentUser,
             'modelPicture' => $modelPicture,
+            'currentUserPosts' => $currentUserPosts,
         ]);
 	}
 

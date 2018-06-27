@@ -18,6 +18,12 @@ $this->title = 'Social networking service';
 			<div class="row">
 
 				<div class="col-md-12">
+					<h4>
+						<a href="<?= Url::to(['/post/default/view', 'id' => $feedItem->post_id]) ?>">Post #<?= $feedItem->post_id ?></a>
+					</h4>
+				</div>
+
+				<div class="col-md-12">
 					<p>
 						<img src="<?= $feedItem->author_picture ?>" class="feed-profile-picture">
 						<a href="<?= Url::to(['/user/profile/view', 'nickname' => $feedItem->author_nickname]) ?>">
@@ -40,7 +46,7 @@ $this->title = 'Social networking service';
 
 				<div class="col-md-12">
 					<p>
-						Likes: <span class="likes-count"><?= $feedItem->countLikes() ?></span>
+						<span class="glyphicon glyphicon-heart-empty"></span> Likes: <span class="likes-count"><?= $feedItem->countLikes() ?></span>
 					</p>
 				</div>
 
@@ -49,8 +55,20 @@ $this->title = 'Social networking service';
 						Like&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
 					</a>
 					<a href="#" class="btn-sm btn-primary button-unlike <?= ($currentUser->likesPost($feedItem->post_id)) ? "" : "display-none" ?>" data-id="<?= $feedItem->post_id ?>">
-						Unlike&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
+						Unlike&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-down"></span>
 					</a>
+					<br><br>
+				</div>
+
+				<?php if ($feedItem->getPostCommentCount()): ?>
+					<div class="col-md-12">
+						Comments(<?= $feedItem->getPostCommentCount() ?>)
+						<br><br>
+					</div>
+				<?php endif; ?>
+
+				<div class="col-md-12">
+					<a href="<?= Url::to(['/post/default/view', 'id' => $feedItem->post_id]) ?>">Read more</a>
 				</div>
 
 			</div>

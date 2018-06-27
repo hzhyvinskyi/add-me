@@ -59,9 +59,19 @@ class Comment extends ActiveRecord
      */
     public function deleteComment($comment)
     {
-        return $comment->delete();
+        if ($comment->delete()) {
+            Post::decrPostCommentCount($comment->post_id);
+
+            return true;
+        }
+
+        return false;
     }
 
+    /**
+     * @param $id
+     * @return array|void|ActiveRecord[]
+     */
     public static function getCommentsByPostId($id)
     {
         if ($comments = parent::find()->where(['post_id' => $id])

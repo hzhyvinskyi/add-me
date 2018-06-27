@@ -35,7 +35,9 @@ use yii\bootstrap\ActiveForm;
 	<div class="row">
 
 		<div class="col-md-8">
-			<p>Likes: <span class="likes-count"><?= $post->countLikes() ?></span></p>
+			<p>
+				<span class="glyphicon glyphicon-heart-empty"></span> Likes: <span class="likes-count"><?= $post->countLikes() ?></span>
+			</p>
 		</div>
 
 	</div>

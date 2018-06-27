@@ -42,7 +42,13 @@ class CommentForm extends Model
             $comment->user_id = $this->user->getId();
             $comment->text = $this->text;
 
-            return $comment->save(false);
+            if ($comment->save(false)) {
+                Post::incrPostCommentCount($comment->post_id);
+
+                return true;
+            }
+
+            return false;
         }
     }
 
