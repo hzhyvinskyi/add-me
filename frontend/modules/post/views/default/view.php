@@ -8,6 +8,7 @@
 
 use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\helpers\HtmlPurifier;
 use yii\bootstrap\ActiveForm;
 ?>
 
@@ -26,7 +27,7 @@ use yii\bootstrap\ActiveForm;
         </div>
 
         <div class="col-md-8">
-            <p><?= Html::encode($post->description) ?></p>
+            <p><?= nl2br(HtmlPurifier::process($post->description)) ?></p>
         </div>
 
     </div>

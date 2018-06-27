@@ -338,4 +338,27 @@ class User extends ActiveRecord implements IdentityInterface
 
         return false;
     }
+
+    /**
+     * Gets data for newsfeed
+     * @param null $limit
+     */
+    public function getFeed(int $limit)
+    {
+        return $this->hasMany(Feed::className(), ['user_id' => 'id'])
+            ->orderBy(['post_created_at' => SORT_DESC])->limit($limit)->all();
+    }
+
+    /**
+     * Checks is current user liked given post
+     * @param int $postId
+     * @return mixed
+     */
+    public function likesPost(int $postId)
+    {
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+
+        return $redis->sismember("user:{$this->getId()}:likes", $postId);
+    }
 }

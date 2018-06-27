@@ -13,7 +13,9 @@ return [
     ],
 
     'postPicture' => [
-        'maxWidth' => 750,
-        'maxHeight' => 750,
+        'maxWidth' => 1280,
+        'maxHeight' => 860,
     ],
+
+    'feedPostLimit' => 100,
 ];

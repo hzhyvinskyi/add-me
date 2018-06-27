@@ -12,7 +12,7 @@ use yii\helpers\Html;
 
 	<?php $form = ActiveForm::begin(); ?>
 		<?= $form->field($model, 'picture')->fileInput() ?>
-		<?= $form->field($model, 'description') ?>
+		<?= $form->field($model, 'description')->textarea(['rows' => 8]) ?>
 		<?= Html::submitButton('Create') ?>
 	<?php ActiveForm::end(); ?>
 
