@@ -33,6 +33,9 @@ $this->title = $user->username;
             'attribute' => 'picture',
             'url' => ['/user/profile/upload-picture'],
             'options' => ['accept' => 'image/*'],
+            'clientOptions' => [
+                'maxFileSize' => 2000000
+            ],
             'clientEvents' => [
                 'fileuploaddone' => 'function(e, data) {
 				if (data.result.success) {

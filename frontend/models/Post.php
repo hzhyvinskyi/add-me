@@ -90,12 +90,14 @@ class Post extends \yii\db\ActiveRecord
 
     /**
      * @param $id
-     * @return Post|null
+     * @return null|\yii\db\ActiveRecord
      * @throws NotFoundHttpException
      */
     public static function getPostById($id)
     {
-        if ($post = parent::findOne($id)) {
+        $post = parent::findOne($id);
+
+        if ($post) {
             return $post;
         }
 
@@ -125,7 +127,7 @@ class Post extends \yii\db\ActiveRecord
      */
     public static function findCurrentUserPosts($id)
     {
-        return parent::find()->where(['user_id' => $id])->all();
+        return parent::find()->where(['user_id' => $id])->orderBy(['id' => SORT_DESC])->all();
     }
 
     /**

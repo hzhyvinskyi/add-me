@@ -70,12 +70,14 @@ class Comment extends ActiveRecord
 
     /**
      * @param $id
-     * @return array|void|ActiveRecord[]
+     * @return array|null|ActiveRecord[]
      */
     public static function getCommentsByPostId($id)
     {
-        if ($comments = parent::find()->where(['post_id' => $id])
-            ->orderBy(['id' => SORT_DESC])->all()) {
+        $comments = parent::find()->where(['post_id' => $id])
+            ->orderBy(['id' => SORT_DESC])->all();
+
+        if ($comments) {
             return $comments;
         }
 
@@ -97,7 +99,9 @@ class Comment extends ActiveRecord
      */
     public static function getCommentById($id)
     {
-        if ($comment = parent::findOne($id)) {
+        $comment = parent::findOne($id);
+
+        if ($comment) {
             return $comment;
         }
 

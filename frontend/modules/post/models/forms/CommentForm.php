@@ -56,7 +56,7 @@ class CommentForm extends Model
      * @param $comment
      * @return mixed
      */
-    public function saveEditedComment($comment)
+    public function saveUpdatedComment($comment)
     {
         if ($this->validate('text')) {
 

@@ -136,7 +136,7 @@ class DefaultController extends Controller
      * @return string|Response
      * @throws NotFoundHttpException
      */
-    public function actionEditComment($id)
+    public function actionUpdateComment($id)
     {
         if (Yii::$app->user->isGuest) {
             return $this->redirect(['/user/default/login']);
@@ -152,7 +152,7 @@ class DefaultController extends Controller
         $model = new CommentForm($post, $currentUser);
 
         if ($currentUser->getId() === $comment->user_id) {
-            if ($model->load(Yii::$app->request->post()) && $model->saveEditedComment($comment)) {
+            if ($model->load(Yii::$app->request->post()) && $model->saveUpdatedComment($comment)) {
                 Yii::$app->session->setFlash('success', 'Comment edited');
 
                 return $this->redirect(['/post/default/view', 'id' => $post->getId()]);

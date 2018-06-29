@@ -81,7 +81,7 @@ use yii\bootstrap\ActiveForm;
 						<?php endif; ?>
 
 						<?php if ($currentUser && $currentUser->getId() === $comment->user_id): ?>
-							<a href="<?= Url::to(['edit-comment', 'id' => $comment->getId()]) ?>">
+							<a href="<?= Url::to(['update-comment', 'id' => $comment->getId()]) ?>">
 								<span class="glyphicon glyphicon-edit"></span>
 							</a>
 						<?php endif; ?>
