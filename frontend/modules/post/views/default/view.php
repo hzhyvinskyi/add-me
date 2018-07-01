@@ -11,6 +11,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\bootstrap\ActiveForm;
+use frontend\widgets\newsList\NewsList;
 ?>
 
 <div class="page-posts no-padding">
@@ -143,6 +144,11 @@ use yii\bootstrap\ActiveForm;
 
 			</div>
 		</div>
+
+		<div class="col-md-3 col-md-offset-1">
+			<?= NewsList::widget(['showLimit' => 15]) ?>
+		</div>
+
 	</div>
 </div>
 

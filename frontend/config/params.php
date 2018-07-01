@@ -18,4 +18,6 @@ return [
     ],
 
     'feedPostLimit' => 100,
+
+    'newsLimit' => 20,
 ];

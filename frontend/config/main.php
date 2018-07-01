@@ -18,6 +18,9 @@ return [
         'post' => [
             'class' => 'frontend\modules\post\Module',
         ],
+        'news' => [
+            'class' => 'frontend\modules\news\Module',
+        ],
 	],
     'components' => [
         'request' => [
@@ -54,6 +57,7 @@ return [
                 'post/<id:\d+>' => 'post/default/view',
                 'post/edit-comment/<id:\d+>' => 'post/default/edit-comment',
                 'post/delete-comment/<id:\d+>' => 'post/default/delete-comment',
+                'news/item/<id:\d+>' => 'news/default/view',
             ],
         ],
         'storage' => [
