@@ -22,7 +22,7 @@ $this->title = $user->username;
 
 	<hr>
 
-	<img src="<?= $user->getPicture() ?>" id="profile-picture"/>
+	<img src="<?= $user->getPicture() ?>" id="profile-picture">
 
 	<br>
 

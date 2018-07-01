@@ -10,82 +10,78 @@ use yii\helpers\HtmlPurifier;
 
 $this->title = 'Social networking service';
 ?>
-<div class="site-index">
-	<?php if ($feedItems): ?>
 
-		<?php foreach ($feedItems as $feedItem): ?>
+<div class="page-posts no-padding">
+	<div class="row">
+		<div class="page page-post col-sm-12 col-xs-12">
+			<div class="blog-posts blog-posts-large">
 
-			<div class="row">
+				<div class="row">
 
-				<div class="col-md-12">
-					<h4>
-						<a href="<?= Url::to(['/post/default/view', 'id' => $feedItem->post_id]) ?>">Post #<?= $feedItem->post_id ?></a>
-					</h4>
+					<?php if ($feedItems): ?>
+
+						<?php foreach ($feedItems as $feedItem): ?>
+
+							<!-- feed item -->
+							<article class="post col-sm-12 col-xs-12">
+								<div class="post-meta">
+									<div class="post-title">
+										<img src="<?= $feedItem->author_picture ?>" class="author-image" alt="author-picture">
+										<div class="author-name">
+											<a href="<?= Url::to(['/user/profile/view', 'nickname' => $feedItem->author_nickname]) ?>">
+                                                <?= Html::encode($feedItem->author_name) ?>
+											</a>
+										</div>
+									</div>
+								</div>
+								<div class="post-type-image">
+									<a href="<?= Url::to(['/post/default/view', 'id' => $feedItem->post_id]) ?>">
+										<img src="<?= Yii::$app->storage->getFile($feedItem->post_filename) ?>" class="post-picture" alt="post-image">
+									</a>
+								</div>
+								<div class="post-description">
+									<p>
+                                    	<?= nl2br(HtmlPurifier::process($feedItem->post_description)) ?>
+									</p>
+								</div>
+								<div class="post-bottom">
+									<div class="post-likes">
+										<i class="fa fa-lg fa-heart-o"></i>
+										<span class="likes-count"><?= $feedItem->countLikes() ?></span>
+										&nbsp;&nbsp;&nbsp;
+										<a href="#" class="btn btn-default button-like <?= ($currentUser->likesPost($feedItem->post_id)) ? "display-none" : "" ?>" data-id="<?= $feedItem->post_id ?>">
+											Like&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
+										</a>
+										<a href="#" class="btn btn-default button-unlike <?= ($currentUser->likesPost($feedItem->post_id)) ? "" : "display-none" ?>" data-id="<?= $feedItem->post_id ?>">
+											Unlike&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-down"></span>
+										</a>
+									</div>
+									<div class="post-comments">
+										<a href="<?= Url::to(['/post/default/view', 'id' => $feedItem->post_id]) ?>">
+											<?= ($feedItem->getPostCommentCount()) ? $feedItem->getPostCommentCount() : '0' ?> <?= ($feedItem->getPostCommentCount() == '1') ? 'Comment' : 'Comments' ?>
+										</a>
+									</div>
+									<div class="post-date">
+										<span><?= Yii::$app->formatter->asDatetime($feedItem->post_created_at) ?>
+</span>
+									</div>
+									<div class="post-report">
+										<a href="#">Report post</a>
+									</div>
+								</div>
+							</article>
+							<!-- feed item -->
+
+						<?php endforeach; ?>
+					<?php else: ?>
+							<div class="col-md-12">
+								<p>Nobody posted yet</p>
+							</div>
+                    <?php endif; ?>
 				</div>
-
-				<div class="col-md-12">
-					<p>
-						<img src="<?= $feedItem->author_picture ?>" class="feed-profile-picture">
-						<a href="<?= Url::to(['/user/profile/view', 'nickname' => $feedItem->author_nickname]) ?>">
-                            <?= Html::encode($feedItem->author_name) ?>
-						</a>&nbsp;&nbsp;
-                        <?= Yii::$app->formatter->asDatetime($feedItem->post_created_at) ?>
-					</p>
-				</div>
-
-				<div class="col-md-12">
-					<img src="<?= Yii::$app->storage->getFile($feedItem->post_filename) ?>" class="post-picture">
-				</div>
-
-
-				<div class="col-md-12">
-					<p>
-						<?= nl2br(HtmlPurifier::process($feedItem->post_description)) ?>
-					</p>
-				</div>
-
-				<div class="col-md-12">
-					<p>
-						<span class="glyphicon glyphicon-heart-empty"></span> Likes: <span class="likes-count"><?= $feedItem->countLikes() ?></span>
-					</p>
-				</div>
-
-				<div class="col-md-12">
-					<a href="#" class="btn-sm btn-primary button-like <?= ($currentUser->likesPost($feedItem->post_id)) ? "display-none" : "" ?>" data-id="<?= $feedItem->post_id ?>">
-						Like&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
-					</a>
-					<a href="#" class="btn-sm btn-primary button-unlike <?= ($currentUser->likesPost($feedItem->post_id)) ? "" : "display-none" ?>" data-id="<?= $feedItem->post_id ?>">
-						Unlike&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-down"></span>
-					</a>
-					<br><br>
-				</div>
-
-				<?php if ($feedItem->getPostCommentCount()): ?>
-					<div class="col-md-12">
-						Comments(<?= $feedItem->getPostCommentCount() ?>)
-						<br><br>
-					</div>
-				<?php endif; ?>
-
-				<div class="col-md-12">
-					<a href="<?= Url::to(['/post/default/view', 'id' => $feedItem->post_id]) ?>">Read more</a>
-				</div>
-
 			</div>
-
-			<hr>
-
-		<?php endforeach; ?>
-
-	<?php else: ?>
-		<div class="row">
-
-			<div class="col-md-12">
-				<p>Nobody posted yet</p>
-			</div>
-
 		</div>
-	<?php endif; ?>
+	</div>
 </div>
 
 <?php $this->registerJsFile('@web/js/likes.js', [

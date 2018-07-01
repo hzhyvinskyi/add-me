@@ -37,6 +37,7 @@ header, section, article, aside, canvas {
 header .header-top {
     position: relative;
     padding: 5px 0;
+    background-color: #f8f8ff;
 }
 
 header .header-top .navicons-topbar ul {
@@ -191,7 +192,7 @@ header .header-top .brand-logo h1 span {
 .blog-posts .post .author-image {
     display: inline-block;
     width: 50px;
-    height: 50px;
+    height: auto;
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     border-radius: 25px;
@@ -215,7 +216,7 @@ header .header-top .brand-logo h1 span {
     display: inline-block;
     border-left: 1px solid #ececec;
     border-right: 1px solid #ececec;
-    padding: 0px 15px 10px;
+    padding: 0 15px 10px;
     margin: 0 10px;
 }
 
@@ -437,7 +438,7 @@ footer .footer p.text {
     display: inline-block;
     border-left: 1px solid #ececec;
     border-right: 1px solid #ececec;
-    padding: 0px 15px 10px;
+    padding: 0 15px 10px;
     margin: 0 10px;
 }
 
@@ -514,4 +515,8 @@ footer .footer p.text {
 }
 .footer, .push {
     height: 80px;
+}
+
+.blog-posts .post .post-bottom .post-likes a.display-none, .profile-page-index .display-none {
+    display: none;
 }

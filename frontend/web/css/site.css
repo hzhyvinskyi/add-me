@@ -86,10 +86,6 @@ a.desc:after {
     outline: none;
 }
 
-.display-none {
-    display: none;
-}
-
 .post-default-index {
     word-break: break-word;
 }

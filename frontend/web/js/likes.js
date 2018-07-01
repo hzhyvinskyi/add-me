@@ -9,7 +9,7 @@ $(document).ready(function () {
 			if (data.success) {
 				button.hide();
 				button.siblings('.button-unlike').show();
-				$('.likes-count').html(data.likesCount);
+				button.siblings('.likes-count').html(data.likesCount);
 			}
 		});
 
@@ -26,7 +26,7 @@ $(document).ready(function () {
 			if (data.success) {
 				button.hide();
 				button.siblings('.button-like').show();
-				$('.likes-count').html(data.likesCount);
+				button.siblings('.likes-count').html(data.likesCount);
 			}
 		});
 
