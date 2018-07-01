@@ -17,7 +17,7 @@ class m180701_172346_create_news_table extends Migration
             'title' => $this->string(255),
             'short_content' => $this->text(),
             'content' => $this->text(),
-            'picture' => $this->string()->notNull(),
+            'picture' => $this->string(),
             'author' => $this->string(50),
             'created_at' => $this->integer()->notNull(),
             'status' => $this->integer(2)->defaultValue(1),
