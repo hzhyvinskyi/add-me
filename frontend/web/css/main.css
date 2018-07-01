@@ -152,7 +152,7 @@ header .header-top .brand-logo h1 span {
 
 .blog-posts {
     position: relative;
-    margin: 50px 0;
+    margin: 15px 0;
     padding-left: 0;
 }
 
@@ -185,7 +185,7 @@ header .header-top .brand-logo h1 span {
     display: inline-block;
     font-weight: normal;
     margin: 10px 0;
-    font-size: 21px;
+    font-size: 18px;
     line-height: 48px;
 }
 
@@ -193,10 +193,7 @@ header .header-top .brand-logo h1 span {
     display: inline-block;
     width: 50px;
     height: auto;
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-    border-radius: 25px;
-    margin: -5px 10px 0 0;
+    margin: -8px 5px 0 0;
 }
 
 .blog-posts .post .post-bottom {
@@ -466,23 +463,17 @@ footer .footer p.text {
 .profile .author-image {
     display: inline-block;
     margin: -5px 10px 0 0;
-    width: 100px;
-    -webkit-border-radius: 50px;
-    -moz-border-radius: 50px;
-    border-radius: 50px;
-    height: 100px;
+    height: 200px;
 }
 
 .profile .author-name {
     margin-right: 20px;
 }
 
-.profile .profile-title a.btn {
-    margin-left: 10px;
-}
-
 .profile-post {
     margin-bottom: 25px;
+    text-align:center;
+
 }
 /** profile **/
 
@@ -517,6 +508,23 @@ footer .footer p.text {
     height: 80px;
 }
 
-.blog-posts .post .post-bottom .post-likes a.display-none, .profile-page-index .display-none {
+.blog-posts .post .post-bottom .post-likes a.display-none,
+.page-posts .profile .display-none,
+.post-default-index .display-none {
     display: none;
+}
+
+@media screen and (max-width:500px) {
+    .blog-posts {
+        margin-top: 120px;
+        text-align: center;
+    }
+
+    #profile-picture {
+        display: inline-block;
+    }
+
+    .header-top .container {
+        text-align: center;
+    }
 }

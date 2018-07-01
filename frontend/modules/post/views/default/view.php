@@ -35,16 +35,8 @@ use yii\bootstrap\ActiveForm;
 	<div class="row">
 
 		<div class="col-md-8">
-			<p>
-				<span class="glyphicon glyphicon-heart-empty"></span> Likes: <span class="likes-count"><?= $post->countLikes() ?></span>
-			</p>
-		</div>
 
-	</div>
-
-	<div class="row">
-
-		<div class="col-md-8">
+				<span class="glyphicon glyphicon-heart-empty"></span>&nbsp;<span class="likes-count"><?= $post->countLikes() ?></span>&nbsp;
 
 			<a href="#" class="btn-sm btn-primary button-like <?= ($currentUser && $post->isLikedBy($currentUser)) ? "display-none" : "" ?>" data-id="<?= $post->getId() ?>">Like&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span></a>
 
