@@ -44,6 +44,7 @@ $this->title = 'Social networking service';
                                     	<?= nl2br(HtmlPurifier::process($feedItem->post_description)) ?>
 									</p>
 								</div>
+								<br>
 								<div class="post-bottom">
 									<div class="post-likes">
 										<i class="fa fa-lg fa-heart-o"></i>

@@ -98,12 +98,13 @@ $this->title = $user->username;
 						</div>
 
 						<?php if ($user->about): ?>
+							<br>
 							<div class="profile-description">
-								<p>
-                                	<?= HtmlPurifier::process($user->about) ?>
-								</p>
+								<?= HtmlPurifier::process($user->about) ?>
 							</div>
 						<?php endif; ?>
+
+						<br><br>
 
 						<div class="profile-bottom">
 							<div class="profile-post-count">
@@ -125,17 +126,15 @@ $this->title = $user->username;
 
 						<br>
 
-
-							<div class="row profile-posts">
-								<?php foreach ($user->getPosts() as $post): ?>
-									<div class="col-md-4 profile-post">
-										<a href="<?= Url::to(['/post/default/view', 'id' => $post->getId()]) ?>">
-											<img src="<?= Yii::$app->storage->getFile($post->filename) ?>" class="author-image">
-										</a>
-									</div>
-								<?php endforeach; ?>
-							</div>
-
+						<div class="row profile-posts">
+							<?php foreach ($user->getPosts() as $post): ?>
+								<div class="col-md-4 profile-post">
+									<a href="<?= Url::to(['/post/default/view', 'id' => $post->getId()]) ?>">
+										<img src="<?= Yii::$app->storage->getFile($post->filename) ?>" class="author-image">
+									</a>
+								</div>
+							<?php endforeach; ?>
+						</div>
 
 					</article>
 

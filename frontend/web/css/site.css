@@ -68,15 +68,6 @@ a.desc:after {
     border: none;
 }
 
-@media(max-width:767px) {
-    .nav li > form > button.logout {
-        display: block;
-        text-align: left;
-        width: 100%;
-        padding: 10px 15px;
-    }
-}
-
 .nav > li > form > button.logout:focus,
 .nav > li > form > button.logout:hover {
     text-decoration: none;
@@ -86,11 +77,26 @@ a.desc:after {
     outline: none;
 }
 
-.post-default-index {
-    word-break: break-word;
+@media(max-width:767px) {
+    .nav li > form > button.logout {
+        display: block;
+        text-align: left;
+        width: 100%;
+        padding: 10px 15px;
+    }
 }
 
-.post-picture {
-    max-width: 100%;
-    margin-bottom: 15px;
+@media screen and (max-width:500px) {
+    .blog-posts {
+        margin-top: 120px;
+        text-align: center;
+    }
+
+    #profile-picture {
+        display: inline-block;
+    }
+
+    .header-top .container {
+        text-align: center;
+    }
 }

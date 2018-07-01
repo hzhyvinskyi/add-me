@@ -29,6 +29,9 @@ a {
     text-decoration: none;
 }
 
+.fs-18 {
+    font-size: 18px;
+}
 
 header, section, article, aside, canvas {
     position: relative;
@@ -36,8 +39,7 @@ header, section, article, aside, canvas {
 
 header .header-top {
     position: relative;
-    padding: 5px 0;
-    background-color: #f8f8ff;
+    background-color: #f5f5f5;
 }
 
 header .header-top .navicons-topbar ul {
@@ -189,7 +191,7 @@ header .header-top .brand-logo h1 span {
     line-height: 48px;
 }
 
-.blog-posts .post .author-image {
+.blog-posts .post .author-image, .page-posts .comment .author-image {
     display: inline-block;
     width: 50px;
     height: auto;
@@ -305,8 +307,6 @@ footer .footer p.text {
     color: #000;
 }
 
-
-
 .post .post-bottom .post-comments a {
     color: #aeaeae;
 }
@@ -315,103 +315,17 @@ footer .footer p.text {
     color: #888;
 }
 
-.main .blog-posts .comments-post {
-    display: inline-block;
-    width: 100%;
-    border: 1px solid #ececec;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    padding: 0 15px;
-    margin: 0 0 30px;
+.post-picture {
+    max-width: 100%;
+    margin-bottom: 15px;
 }
 
-.comment
-{
-    padding-top: 20px;
+.page-posts {
+    word-break: break-word;
 }
 
-.comments-post ul.comment-list {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.comments-post ul.comment-list li {
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    padding: 30px 0;
-}
-
-.comments-post ul.comment-list ul li {
-    padding: 30px 25px;
-}
-
-.comments-post ul.comment-list li ~ li {
-    border-top: 1px solid #ececec;
-}
-
-.comments-post ul.comment-list li .comment-user-image {
-    position: absolute;
-    display: inline-block;
-    overflow: hidden;
-    left: 25px;
-}
-
-.comments-post ul.comment-list li .comment-info {
-    display: block;
-    margin: 0 0 0 90px;
-}
-
-.comments-post ul.comment-list li .comment-info {
-    display: inline-block;
-    text-align: left;
-    width: 100%;
-    padding: 0 25px;
-}
-
-.comments-post ul.comment-list ul.children .comment-info {
-    display: inline-block;
-    text-align: left;
-    width: 100%;
-    padding: 0;
-}
-
-.comments-post ul.comment-list li .comment-info h4.author {
-    display: inline-block;
-    width: 100%;
-    font-family: 'Ubuntu', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    color: #000;
-    margin: 0;
-}
-
-.comments-post ul.comment-list li .comment-info h4.author a {
-    display: inline-block;
-    text-decoration: none;
-}
-
-
-.comments-post ul.comment-list li .comment-info p {
-    display: inline-block;
-    width: 100%;
-    font-size: 13px;
-    line-height: 22px;
-    color: #606060;
-    margin: 10px 0;
-}
-
-
-.comments-post ul.comment-list li .comment-info h4.author a {
-    color: #000;
-}
-
-.comments-post ul.comment-list li .comment-info h4.author a:hover {
-    color: #c16fb6;
+.post-comment-description {
+    padding-left: 60px;
 }
 
 /** profile **/
@@ -463,7 +377,15 @@ footer .footer p.text {
 .profile .author-image {
     display: inline-block;
     margin: -5px 10px 0 0;
-    height: 200px;
+    height: 230px;
+}
+
+.profile-post:hover img {
+    padding: 10px 10px;
+}
+
+.profile-post img {
+    transition:all 0.5s;
 }
 
 .profile .author-name {
@@ -514,17 +436,8 @@ footer .footer p.text {
     display: none;
 }
 
-@media screen and (max-width:500px) {
-    .blog-posts {
-        margin-top: 120px;
-        text-align: center;
-    }
-
-    #profile-picture {
-        display: inline-block;
-    }
-
-    .header-top .container {
-        text-align: center;
-    }
+.page-posts .date-single {
+    border-left: 1px solid #ececec;
+    margin: 0 0 0 15px;
+    padding: 0 0 10px 15px;
 }

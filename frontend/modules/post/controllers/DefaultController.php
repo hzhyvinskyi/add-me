@@ -1,6 +1,7 @@
 <?php
 namespace frontend\modules\post\controllers;
 
+use frontend\models\Feed;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
