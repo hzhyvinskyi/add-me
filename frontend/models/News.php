@@ -18,7 +18,7 @@ use yii\web\NotFoundHttpException;
  */
 class News extends \yii\db\ActiveRecord
 {
-    const DEFAULT_IMAGE = '/img/No-Photo-Available-For-News-Item.jpg';
+    const DEFAULT_IMAGE = '/img/news-item-photo-unavailable.jpg';
 
     /**
      * {@inheritdoc}

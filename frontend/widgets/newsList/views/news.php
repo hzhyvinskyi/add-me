@@ -1,7 +1,6 @@
 <?php
 
 /* @var $list \frontend\models\News */
-
 ?>
 
 <h3>Latest news</h3>
@@ -14,6 +13,8 @@
             <?= $item->title ?>
         </a>
     </h4>
+
     <p><?= $item->short_content ?></p>
+
 	<hr>
 <?php endforeach; ?>

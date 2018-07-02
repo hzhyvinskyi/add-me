@@ -9,6 +9,16 @@ use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 
 $this->title = 'Social networking service';
+
+$this->registerMetaTag([
+	'name' => 'description',
+	'content' => 'Add me is a social networking service. Here you can create posts, share your pictures and thoughts with friends',
+]);
+
+$this->registerMetaTag([
+    'name' => 'description',
+    'keywords' => 'Add me, Social networking service, Social network, create posts, share pictures, read news',
+]);
 ?>
 
 <div class="page-posts no-padding">
@@ -67,7 +77,7 @@ $this->title = 'Social networking service';
 </span>
 									</div>
 									<div class="post-report">
-										<a href="#">Report post</a>
+										<button class="btn btn-default btn-report">Report post</button>
 									</div>
 								</div>
 							</article>

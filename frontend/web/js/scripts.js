@@ -9,4 +9,11 @@ jQuery(document).ready(function ($) {
         });
     });
 
+    $('.btn-report').click(function () {
+        $(this).attr('disabled', '');
+        $(this).text('Post reported');
+
+        return false;
+	});
+
 });

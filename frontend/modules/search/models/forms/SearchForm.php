@@ -17,6 +17,10 @@ class SearchForm extends Model
         ];
     }
 
+    /**
+     * @return array
+     * @throws \yii\db\Exception
+     */
     public function search()
     {
         if ($this->validate()) {

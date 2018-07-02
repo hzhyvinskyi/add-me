@@ -9,6 +9,9 @@ class NewsList extends Widget
 {
     public $showLimit = null;
 
+    /**
+     * @return string
+     */
     public function run()
     {
         $max = Yii::$app->params['newsLimit'];

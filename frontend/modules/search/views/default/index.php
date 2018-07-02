@@ -1,11 +1,18 @@
 <?php
 
+/* @var $this \yii\web\View */
 /* @var $model \frontend\modules\search\models\forms\SearchForm */
 /* @var $results \frontend\modules\search\models\NewsSearch */
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use frontend\helpers\HighlightHelper;
+
+$this->title = 'News search';
+$this->registerMetaTag([
+	'name' => 'description',
+	'content' => 'Mysql full-text search',
+]);
 ?>
 
 <h1>News search form</h1>
