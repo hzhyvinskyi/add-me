@@ -21,6 +21,9 @@ return [
         'news' => [
             'class' => 'frontend\modules\news\Module',
         ],
+        'search' => [
+            'class' => 'frontend\modules\search\Module',
+        ],
 	],
     'components' => [
         'request' => [

@@ -67,9 +67,14 @@ header .header-top ul li a.search-toggle {
     position: relative;
     z-index: 1;
 }
+
 header .header-top ul li.blog-search .dropdown {
     width: auto;
     cursor: pointer;
+}
+
+header .header-top ul li.blog-search:hover a {
+    color: #000;
 }
 
 header .header-top .brand-logo {
@@ -317,7 +322,7 @@ footer .footer p.text {
 
 .post-picture {
     max-width: 100%;
-    margin-bottom: 15px;
+    margin: 0 auto 15px;
 }
 
 .page-posts {

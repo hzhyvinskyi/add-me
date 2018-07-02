@@ -40,7 +40,9 @@ FontAwesomeAsset::register($this);
 					<div class="col-md-4 col-sm-4 navicons-topbar">
 						<ul>
 							<li class="blog-search">
-								<a href="#" title="Search"><i class="fa fa-search"></i></a>
+								<a href="<?= Url::to(['/search/default']) ?>" title="Search">
+									<i class="fa fa-search"></i>
+								</a>
 							</li>
 						</ul>
 					</div>
