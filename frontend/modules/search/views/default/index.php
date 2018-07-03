@@ -36,5 +36,5 @@ $this->registerMetaTag([
     <?php endforeach; ?>
 <?php elseif ($results > 1): ?>
 	<br>
-	<p>No search results...</p>
+	<p>No search results</p>
 <?php endif; ?>

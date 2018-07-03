@@ -86,6 +86,12 @@ a.desc:after {
     }
 }
 
+@media screen and (max-width:549px) {
+    .header-main-nav {
+        margin-bottom:110px !important;
+    }
+}
+
 @media screen and (max-width:500px) {
     .blog-posts {
         margin-top: 120px;

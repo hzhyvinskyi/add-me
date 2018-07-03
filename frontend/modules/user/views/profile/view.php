@@ -31,7 +31,7 @@ $this->title = $user->username;
 							<br>
 							<img src="<?= $user->getPicture() ?>" id="profile-picture">
 
-							<?php if ($currentUser && !$currentUser->equals($user)): ?>
+                            <?php if ($currentUser && !$currentUser->equals($user)): ?>
 								<br><br>
                                 <?php if (!$currentUser->isFollowing($user)): ?>
 									<a href="<?= Url::to(['/user/profile/subscribe', 'id' => $user->getId()]) ?>" class="btn btn-info">
@@ -97,19 +97,19 @@ $this->title = $user->username;
 
 						</div>
 
-						<?php if ($user->about): ?>
+                        <?php if ($user->about): ?>
 							<br>
 							<div class="profile-description">
-								<?= HtmlPurifier::process($user->about) ?>
+                                <?= HtmlPurifier::process($user->about) ?>
 							</div>
-						<?php endif; ?>
+                        <?php endif; ?>
 
 						<br><br>
 
 						<div class="profile-bottom">
 							<div class="profile-post-count">
 								<span><?= ($user->getPostCount()) ?>
-									<?= ($user->getPostCount() == '1') ? 'post' : 'posts' ?>
+                                    <?= ($user->getPostCount() == '1') ? 'post' : 'posts' ?>
 								</span>
 							</div>
 							<div class="profile-followers">
@@ -127,13 +127,13 @@ $this->title = $user->username;
 						<br>
 
 						<div class="row profile-posts">
-							<?php foreach ($user->getPosts() as $post): ?>
+                            <?php foreach ($user->getPosts() as $post): ?>
 								<div class="col-md-4 profile-post">
 									<a href="<?= Url::to(['/post/default/view', 'id' => $post->getId()]) ?>">
 										<img src="<?= Yii::$app->storage->getFile($post->filename) ?>" class="author-image">
 									</a>
 								</div>
-							<?php endforeach; ?>
+                            <?php endforeach; ?>
 						</div>
 
 					</article>
@@ -178,12 +178,12 @@ $this->title = $user->username;
 				<h4 class="modal-title" id="myModalLabel">Followers</h4>
 			</div>
 			<div class="modal-body">
-				<?php foreach ($user->getFollowers() as $follower): ?>
+                <?php foreach ($user->getFollowers() as $follower): ?>
 					<a href="<?= Url::to(['/user/profile/view', 'nickname' => ($follower['nickname'] ? $follower['nickname'] : $follower['id'])]) ?>">
-						<?= Html::encode($follower['username']) ?>
+                        <?= Html::encode($follower['username']) ?>
 					</a>
 					<br>
-				<?php endforeach; ?>
+                <?php endforeach; ?>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
