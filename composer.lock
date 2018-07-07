@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85175ffe8864b4f4b844b1d04afc2438",
+    "content-hash": "70cc5f86b4072407169c8ca5c104ce89",
     "packages": [
         {
             "name": "2amigos/yii2-file-upload-widget",
@@ -1254,6 +1254,56 @@
                 "yii2"
             ],
             "time": "2018-03-20T11:01:04+00:00"
+        },
+        {
+            "name": "yiisoft/yii2-sphinx",
+            "version": "2.0.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-sphinx.git",
+                "reference": "ecea2db7cd674ecd2a837813d77b3cebe65f7b06"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-sphinx/zipball/ecea2db7cd674ecd2a837813d77b3cebe65f7b06",
+                "reference": "ecea2db7cd674ecd2a837813d77b3cebe65f7b06",
+                "shasum": ""
+            },
+            "require": {
+                "ext-pdo": "*",
+                "ext-pdo_mysql": "*",
+                "yiisoft/yii2": "~2.0.13"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "yii\\sphinx\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Paul Klimov",
+                    "email": "klimov.paul@gmail.com"
+                }
+            ],
+            "description": "Sphinx full text search engine extension for the Yii framework",
+            "keywords": [
+                "active-record",
+                "fulltext",
+                "search",
+                "sphinx",
+                "yii2"
+            ],
+            "time": "2018-02-13T15:16:20+00:00"
         },
         {
             "name": "yiisoft/yii2-swiftmailer",

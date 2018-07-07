@@ -26,7 +26,7 @@ class SearchForm extends Model
         if ($this->validate()) {
             $model = new NewsSearch();
 
-            return $model->fulltextSearch($this->keyword);
+            return $model->advancedSearch($this->keyword);
         }
     }
 }
