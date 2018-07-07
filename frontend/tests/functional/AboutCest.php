@@ -8,6 +8,6 @@ class AboutCest
     public function checkAbout(FunctionalTester $I)
     {
         $I->amOnRoute('site/about');
-        $I->see('About', 'h1');
+        $I->see('Add me is the resource-community online for photo sharing', 'h1');
     }
 }

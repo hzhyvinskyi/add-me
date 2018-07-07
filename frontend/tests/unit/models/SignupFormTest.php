@@ -1,8 +1,8 @@
 <?php
 namespace frontend\tests\unit\models;
 
-use common\fixtures\UserFixture;
-use frontend\models\SignupForm;
+use frontend\modules\user\models\SignupForm;
+use frontend\tests\fixtures\UserFixture;
 
 class SignupFormTest extends \Codeception\Test\Unit
 {
@@ -17,7 +17,6 @@ class SignupFormTest extends \Codeception\Test\Unit
         $this->tester->haveFixtures([
             'user' => [
                 'class' => UserFixture::className(),
-                'dataFile' => codecept_data_dir() . 'user.php'
             ]
         ]);
     }
@@ -55,5 +54,70 @@ class SignupFormTest extends \Codeception\Test\Unit
             ->equals('This username has already been taken.');
         expect($model->getFirstError('email'))
             ->equals('This email address has already been taken.');
+    }
+
+    public function testTrimUsername()
+    {
+        $model = new SignupForm([
+            'username' => '   some_username   ',
+            'email' => 'some_email@example.com',
+            'password' => '123456',
+        ]);
+
+        $model->signup();
+
+        expect($model->username)->equals('some_username');
+    }
+
+    public function testUsernameRequired()
+    {
+        $model = new SignupForm([
+            'username' => '',
+            'email' => 'some_email@example.com',
+            'password' => 'some_password',
+        ]);
+
+        $model->signup();
+
+        expect($model->getFirstError('username'))->equals('Username cannot be blank.');
+    }
+
+    public function testUsernameTooShort()
+    {
+        $model = new SignupForm([
+            'username' => 's',
+            'email' => 'some_email@example.com',
+            'password' => 'some_password',
+        ]);
+
+        $model->signup();
+
+        expect($model->getFirstError('username'))->equals('Username should contain at least 2 characters.');
+    }
+
+    public function testPasswordRequired()
+    {
+        $model = new SignupForm([
+            'username' => 'some_username',
+            'email' => 'some_email@example.com',
+            'password' => '',
+        ]);
+
+        $model->signup();
+
+        expect($model->getFirstError('password'))->equals('Password cannot be blank.');
+    }
+
+    public function testEmailUnique()
+    {
+        $model = new SignupForm([
+            'username' => 'some_username',
+            'email' => '1@got.com',
+            'password' => 'some_password',
+        ]);
+
+        $model->signup();
+
+        expect($model->getFirstError('email'))->equals('This email addres has already been taken');
     }
 }
