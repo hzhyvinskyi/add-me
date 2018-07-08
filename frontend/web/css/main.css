@@ -333,6 +333,14 @@ footer .footer p.text {
     padding-left: 60px;
 }
 
+.page-posts .blog-posts .post .post-bottom .post-comments {
+    padding: 0 15px 15px;
+}
+
+.page-posts .blog-posts .post .post-bottom .post-report {
+    padding: 0 15px 6px;
+}
+
 /** profile **/
 .profile {
     margin-bottom: 35px;
@@ -444,5 +452,5 @@ footer .footer p.text {
 .page-posts .date-single {
     border-left: 1px solid #ececec;
     margin: 0 0 0 15px;
-    padding: 0 0 10px 15px;
+    padding: 0 0 16px 15px;
 }

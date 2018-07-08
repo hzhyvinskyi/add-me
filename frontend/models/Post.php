@@ -13,6 +13,7 @@ use yii\web\NotFoundHttpException;
  * @property string $filename
  * @property string $description
  * @property int $created_at
+ * @property int $complaints
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -154,6 +155,40 @@ class Post extends \yii\db\ActiveRecord
         $redis = Yii::$app->redis;
 
         return $redis->decr("post:{$post_id}:comments");
+    }
+
+    /**
+     * Adds complaint to post given user
+     * @param User $user
+     * @return bool
+     */
+    public function complain(User $user)
+    {
+        /* @var $redis Connection */
+        $redis = Yii::$app->redis;
+
+        $key = "post:{$this->getId()}:complaints";
+
+        if (!$redis->sismember($key, $user->getId())) {
+            $redis->sadd($key, $user->getId());
+
+            $this->complaints++;
+
+            return $this->save(false, ['complaints']);
+        }
+    }
+
+    /**
+     * Checks is post already reported by given user
+     * @param User $user
+     * @return mixed
+     */
+    public function isReported(User $user)
+    {
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+
+        return $redis->sismember("post:{$this->getId()}:complaints", $user->getId());
     }
 
     /**

@@ -69,4 +69,17 @@ class Feed extends \yii\db\ActiveRecord
 
         return $redis->get("post:{$this->post_id}:comments");
     }
+
+    /**
+     * Checks is post already reported by given user
+     * @param User $user
+     * @return mixed
+     */
+    public function isReported(User $user)
+    {
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+
+        return $redis->sismember("post:{$this->post_id}:complaints", $user->getId());
+    }
 }

@@ -12,6 +12,7 @@ use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\bootstrap\ActiveForm;
 use frontend\widgets\newsList\NewsList;
+use yii\web\JqueryAsset;
 ?>
 
 <div class="page-posts no-padding">
@@ -57,7 +58,13 @@ use frontend\widgets\newsList\NewsList;
 								<span><?= Yii::$app->formatter->asDatetime($post->created_at) ?></span>
 							</div>
 							<div class="post-report">
-								<button class="btn btn-default btn-report">Report post</button>
+                                <?php if (!$post->isReported($currentUser)): ?>
+									<a href="#" class="btn btn-default button-complain" data-id="<?= $post->getId() ?>">
+										Report post <i class="fa fa-cog fa-spin fa-fw icon-preloader" style="display: none"></i>
+									</a>
+                                <?php else: ?>
+									<p>Post already reported</p>
+                                <?php endif; ?>
 							</div>
 						</div>
 					</article>
@@ -157,5 +164,11 @@ use frontend\widgets\newsList\NewsList;
 </div>
 
 <?php $this->registerJsFile('@web/js/likes.js', [
-    'depends' => yii\web\JqueryAsset::className()
-]); ?>
+    'depends' => JqueryAsset::className()
+]);
+
+$this->registerJsFile('@web/js/complaints.js', [
+    'depends' => JqueryAsset::className(),
+]);
+?>
+
