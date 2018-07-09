@@ -14,5 +14,8 @@ return [
             'dateFormat' => 'dd.MM.yyyy',
             'timeZone' => 'Europe/Kiev',
         ],
+        'storage' => [
+            'class' => 'common\components\Storage',
+        ],
     ],
 ];

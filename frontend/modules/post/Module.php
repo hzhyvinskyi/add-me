@@ -1,5 +1,4 @@
 <?php
-
 namespace frontend\modules\post;
 
 /**

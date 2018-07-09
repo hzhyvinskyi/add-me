@@ -4,7 +4,6 @@ return [
 
     'maxFileSize' => 1024 * 1024 * 2,
     'minFileSize' => 1024 * 50,
-    'storagePath' => '@frontend/web/uploads/',
     'storageUri' => '/uploads/',
 
     'profilePicture' => [

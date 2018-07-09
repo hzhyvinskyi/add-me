@@ -1,15 +1,15 @@
 <?php
-namespace frontend\modules\search;
+namespace backend\modules\complaints;
 
 /**
- * search module definition class
+ * complaints module definition class
  */
 class Module extends \yii\base\Module
 {
     /**
      * {@inheritdoc}
      */
-    public $controllerNamespace = 'frontend\modules\search\controllers';
+    public $controllerNamespace = 'backend\modules\complaints\controllers';
 
     /**
      * {@inheritdoc}

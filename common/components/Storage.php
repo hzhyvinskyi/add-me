@@ -1,5 +1,5 @@
 <?php
-namespace frontend\components;
+namespace common\components;
 
 use Yii;
 use yii\helpers\FileHelper;
