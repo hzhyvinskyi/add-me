@@ -3,7 +3,7 @@
 /* @var $list \frontend\models\News */
 ?>
 
-<h3>Latest news</h3>
+<h3><?= Yii::t('news_list', 'Latest news') ?></h3>
 
 <hr>
 

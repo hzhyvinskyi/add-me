@@ -1,4 +1,8 @@
-jQuery(document).ready(function ($) {
+$(document).ready(function ($) {
+
+    $('select.language').on('change', function () {
+        $('#site-language-form').submit();
+	});
 
     /*====== BACK TO TOP ======*/
     $('.back-to-top-page').each(function () {

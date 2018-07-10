@@ -34,7 +34,7 @@ class DefaultController extends Controller
             $model->picture = UploadedFile::getInstance($model, 'picture');
 
             if ($model->save()) {
-                Yii::$app->session->setFlash('success', 'Post created successfully!');
+                Yii::$app->session->setFlash('success', Yii::t('create_post', 'Post created successfully!'));
 
                 return $this->goHome();
             }
@@ -64,7 +64,7 @@ class DefaultController extends Controller
             $model = new CommentForm($post, $currentUser);
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                Yii::$app->session->setFlash('success', 'Comment has been added');
+                Yii::$app->session->setFlash('success', Yii::t('post_view', 'Comment has been added'));
 
                 return $this->refresh();
             }
@@ -154,7 +154,7 @@ class DefaultController extends Controller
 
         if ($currentUser->getId() === $comment->user_id) {
             if ($model->load(Yii::$app->request->post()) && $model->saveUpdatedComment($comment)) {
-                Yii::$app->session->setFlash('success', 'Comment edited');
+                Yii::$app->session->setFlash('success', Yii::t('edit_comment', 'Comment updated'));
 
                 return $this->redirect(['/post/default/view', 'id' => $post->getId()]);
             }
@@ -190,7 +190,7 @@ class DefaultController extends Controller
         $post = Post::getPostById($comment->post_id);
 
         if ($currentUser->getId() === $post->user_id && $model->deleteComment($comment)) {
-            Yii::$app->session->setFlash('success', 'Comment deleted');
+            Yii::$app->session->setFlash('success', Yii::t('post_view', 'Comment deleted'));
 
             return $this->redirect(['/post/default/view', 'id' => $post->getId()]);
         } else {
@@ -220,13 +220,13 @@ class DefaultController extends Controller
         if ($post->complain($currentUser)) {
             return [
                 'success' => true,
-                'text' => 'Post reported',
+                'text' => Yii::t('index', 'Post reported'),
             ];
         }
 
         return [
             'success' => false,
-            'text' => 'Error occurred',
+            'text' => Yii::t('index', 'Error occurred'),
         ];
     }
 }

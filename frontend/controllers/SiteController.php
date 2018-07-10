@@ -5,6 +5,8 @@ use Yii;
 use yii\web\Controller;
 use frontend\models\ContactForm;
 use frontend\models\User;
+use yii\web\Cookie;
+use frontend\components\LanguageSelector;
 
 /**
  * Site controller
@@ -82,5 +84,28 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    /**
+     * Sets language if it's available and add's cookie
+     * @return \yii\web\Response
+     */
+    public function actionLanguage()
+    {
+        $language = Yii::$app->request->post('language');
+
+        if (in_array($language, LanguageSelector::$supportedLanguages)) {
+            Yii::$app->language = $language;
+
+            $languageCookie = new Cookie([
+                'name' => 'language',
+                'value' => $language,
+                'expire' => time() + 60 * 60 * 24 * 30,
+            ]);
+
+            Yii::$app->response->cookies->add($languageCookie);
+        }
+
+        return $this->redirect(Yii::$app->request->referrer);
     }
 }

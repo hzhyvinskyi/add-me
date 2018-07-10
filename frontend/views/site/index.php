@@ -62,15 +62,20 @@ $this->registerMetaTag([
 										<span class="likes-count"><?= $feedItem->countLikes() ?></span>
 										&nbsp;&nbsp;&nbsp;
 										<a href="#" class="btn btn-default button-like <?= ($currentUser->likesPost($feedItem->post_id)) ? "display-none" : "" ?>" data-id="<?= $feedItem->post_id ?>">
-											Like&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
+											<?= Yii::t('index', 'Like') ?>&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
 										</a>
 										<a href="#" class="btn btn-default button-unlike <?= ($currentUser->likesPost($feedItem->post_id)) ? "" : "display-none" ?>" data-id="<?= $feedItem->post_id ?>">
-											Unlike&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-down"></span>
+                                            <?= Yii::t('index', 'Unlike') ?>&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-down"></span>
 										</a>
 									</div>
 									<div class="post-comments">
 										<a href="<?= Url::to(['/post/default/view', 'id' => $feedItem->post_id]) ?>">
-											<?= ($feedItem->getPostCommentCount()) ? $feedItem->getPostCommentCount() : '0' ?> <?= ($feedItem->getPostCommentCount() == '1') ? 'Comment' : 'Comments' ?>
+											<?= Yii::t('index', 'Comments') ?>
+											<?php if($feedItem->getPostCommentCount()): ?>
+												(<?= $feedItem->getPostCommentCount() ?>)
+											<?php else: ?>
+												(0)
+											<?php endif; ?>
 										</a>
 									</div>
 									<div class="post-date">
@@ -80,10 +85,10 @@ $this->registerMetaTag([
 									<div class="post-report">
 										<?php if (!$feedItem->isReported($currentUser)): ?>
 											<a href="#" class="btn btn-default button-complain" data-id="<?= $feedItem->post_id ?>">
-												Report post <i class="fa fa-cog fa-spin fa-fw icon-preloader" style="display: none"></i>
+												<?= Yii::t('index', 'Report post') ?> <i class="fa fa-cog fa-spin fa-fw icon-preloader" style="display: none"></i>
 											</a>
 										<?php else: ?>
-											<p>Post already reported</p>
+											<p><?= Yii::t('index', 'Post already reported') ?></p>
 										<?php endif; ?>
 									</div>
 								</div>

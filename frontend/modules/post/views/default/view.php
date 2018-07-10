@@ -13,6 +13,8 @@ use yii\helpers\HtmlPurifier;
 use yii\bootstrap\ActiveForm;
 use frontend\widgets\newsList\NewsList;
 use yii\web\JqueryAsset;
+
+$this->title = 'Post #' . $post->getId();
 ?>
 
 <div class="page-posts no-padding">
@@ -48,10 +50,10 @@ use yii\web\JqueryAsset;
 								<span class="likes-count"><?= $post->countLikes() ?></span>
 								&nbsp;&nbsp;&nbsp;
 								<a href="#" class="btn btn-default button-like <?= ($currentUser->likesPost($post->getId())) ? "display-none" : "" ?>" data-id="<?= $post->getId() ?>">
-									Like&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
+                                    <?= Yii::t('post_view', 'Like') ?>&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
 								</a>
 								<a href="#" class="btn btn-default button-unlike <?= ($currentUser->likesPost($post->getId())) ? "" : "display-none" ?>" data-id="<?= $post->getId() ?>">
-									Unlike&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-down"></span>
+                                    <?= Yii::t('post_view', 'Unlike') ?>&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-down"></span>
 								</a>
 							</div>
 							<div class="post-date date-single">
@@ -60,10 +62,10 @@ use yii\web\JqueryAsset;
 							<div class="post-report">
                                 <?php if (!$post->isReported($currentUser)): ?>
 									<a href="#" class="btn btn-default button-complain" data-id="<?= $post->getId() ?>">
-										Report post <i class="fa fa-cog fa-spin fa-fw icon-preloader" style="display: none"></i>
+                                        <?= Yii::t('post_view', 'Report post') ?> <i class="fa fa-cog fa-spin fa-fw icon-preloader" style="display: none"></i>
 									</a>
                                 <?php else: ?>
-									<p>Post already reported</p>
+									<p><?= Yii::t('post_view', 'Post already reported') ?></p>
                                 <?php endif; ?>
 							</div>
 						</div>
@@ -79,7 +81,7 @@ use yii\web\JqueryAsset;
 
 							<p class="fs-18">
                                 <?= (count($comments)) ?>
-                                <?= (count($comments) == '1') ? 'comment' : 'comments' ?>
+                                <?= (count($comments) == '1') ? Yii::t('post_view', 'comment') : Yii::t('post_view', 'comments') ?>
 							</p>
 
                             <?php foreach ($comments as $comment): ?>
@@ -94,12 +96,13 @@ use yii\web\JqueryAsset;
                                         <?= Html::encode($comment->user->username) ?>
 									</a>&nbsp;&nbsp;&nbsp;
 
-									Created: <?= Yii::$app->formatter->asDatetime($comment->created_at) ?>&nbsp;&nbsp;
+									<?= Yii::t('post_view', 'Created:') ?>
+									<?= Yii::$app->formatter->asDatetime($comment->created_at) ?>&nbsp;&nbsp;
 
                                     <?php if ($comment->created_at !== $comment->updated_at): ?>
-
-										|&nbsp; Updated: <?= Yii::$app->formatter->asDatetime($comment->updated_at) ?>&nbsp;&nbsp;
-
+										|&nbsp;
+										<?= Yii::t('post_view', 'Updated:') ?>
+										<?= Yii::$app->formatter->asDatetime($comment->updated_at) ?>&nbsp;&nbsp;
                                     <?php endif; ?>
 
                                     <?php if ($currentUser && $currentUser->getId() === $comment->user_id): ?>
@@ -141,8 +144,8 @@ use yii\web\JqueryAsset;
                         <?php if ($currentUser): ?>
 
                             <?php $form = ActiveForm::begin() ?>
-                            <?= $form->field($model, 'text')->textarea(['rows' => 8])->label('Leave a comment') ?>
-                            <?= Html::submitButton('Comment on this post', ['class' => 'btn btn-success']) ?>
+                            <?= $form->field($model, 'text')->textarea(['rows' => 8])->label(Yii::t('post_view', 'Leave a comment')) ?>
+                            <?= Html::submitButton(Yii::t('post_view', 'Comment on this post'), ['class' => 'btn btn-success']) ?>
                             <?php ActiveForm::end() ?>
 
                         <?php else: ?>
