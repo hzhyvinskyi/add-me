@@ -74,9 +74,9 @@ class ProfileController extends Controller
         $currentUser = Yii::$app->user->identity;
 
         if ($currentUser->deletePicture()) {
-            Yii::$app->session->setFlash('success', 'Picture deleted');
+            Yii::$app->session->setFlash('success', Yii::t('profile_view', 'Picture deleted'));
         } else {
-            Yii::$app->session->setFlash('danger', 'Error occured');
+            Yii::$app->session->setFlash('danger', Yii::t('profile_view', 'Error occurred'));
         }
 
         return $this->redirect(['/user/profile/view', 'nickname' => $currentUser->getNickname()]);

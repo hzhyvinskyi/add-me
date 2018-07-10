@@ -1,6 +1,8 @@
 <?php
 return [
-    'Profile image has been updated' => 'Изображение профиля было обновлено',
+    'Profile image has been updated' => 'Изображение профиля обновлено',
+    'Picture deleted' => 'Изображение профиля удалено',
+    'Error occurred' => 'Произошла ошибка',
     'Subscribe' => 'Подписаться',
     'Unsubscribe' => 'Отписаться',
     'Friends, who are also following ' => 'Друзья, которые подписаны на ',

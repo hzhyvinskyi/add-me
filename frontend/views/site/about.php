@@ -7,7 +7,7 @@ use yii\helpers\Html;
 $this->title = 'About';
 ?>
 <div class="site-about">
-	<h1><?= Yii::t('about', 'Add me is the resource-community online for photo sharing'); ?></h1>
+	<h1>Add me <?= Yii::t('about', 'is the resource-community online for photo sharing'); ?></h1>
 
 	<p>
 		<?= Yii::t('about', 'The closest example is the social network') ?> <a href="https://www.instagram.com" target="_blank">Instagram</a>

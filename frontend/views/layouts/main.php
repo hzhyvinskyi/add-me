@@ -49,6 +49,7 @@ FontAwesomeAsset::register($this);
 									<select name="language" class="language">
 										<option value="en-US" <?php if (Yii::$app->language == 'en-US') echo 'selected' ?>>English</option>
 										<option value="ru-RU" <?php if (Yii::$app->language == 'ru-RU') echo 'selected' ?>>Русский</option>
+										<option value="uk-UA" <?php if (Yii::$app->language == 'uk-UA') echo 'selected' ?>>Українська</option>
 									</select>
 								</form>
 							</li>

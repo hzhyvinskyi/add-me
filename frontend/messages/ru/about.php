@@ -1,6 +1,6 @@
 <?php
 return [
-    'Add me is the resource-community online for photo sharing' => 'Add me это ресурс-сообщество онлайн для обмена фотографиями',
+    'is the resource-community online for photo sharing' => 'это ресурс-сообщество онлайн для обмена фотографиями',
     'The closest example is the social network' => 'Ближайший пример - социальная сеть',
     'The purpose of the resource is to maintain photo diaries online, the opportunity to make friends and make acquaintances, share photos and follow the news of friends' => 'Цель ресурса - ведение фото-дневников онлайн, возможность дружить и заводить знакомства, делиться фотографиями и следить за новостями знакомых',
     'Main features:' => 'Основные возможности:',
