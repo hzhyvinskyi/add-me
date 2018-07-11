@@ -97,21 +97,25 @@ $this->title = $user->username;
 								<a href="<?= Url::to(['/user/profile/delete-picture']) ?>" class="btn btn-danger">
 									<?= Yii::t('profile_view', 'Delete picture') ?>
 								</a>
-								<a href="#" class="btn btn-default" data-toggle="modal" data-target="#editModal">
+								<a href="<?= Url::to(['/user/profile/update']) ?>" class="btn btn-default">
 									<?= Yii::t('profile_view', 'Edit profile') ?>
 								</a>
                             <?php endif; ?>
 
 						</div>
 
-                        <?php if ($user->about): ?>
-							<br>
-							<div class="profile-description">
-                                <?= HtmlPurifier::process($user->about) ?>
-							</div>
-                        <?php endif; ?>
+						<div class="row">
+							<div class="col-md-4">
+                                <?php if ($user->about): ?>
+									<br>
+									<div class="profile-description">
+                                        <?= nl2br(HtmlPurifier::process($user->about)) ?>
+									</div>
+                                <?php endif; ?>
 
-						<br><br>
+								<br><br>
+							</div>
+						</div>
 
 						<div class="profile-bottom">
 							<div class="profile-post-count">
@@ -197,26 +201,6 @@ $this->title = $user->username;
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">
 					<?= Yii::t('profile_view', 'Close') ?>
-				</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<!-- Subscriptions modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel"><?= Yii::t('profile_view', 'Profile editing') ?></h4>
-			</div>
-			<div class="modal-body">
-				<?= Yii::t('profile_view', 'This feature will be added in the near future') ?>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">
-                    <?= Yii::t('profile_view', 'Close') ?>
 				</button>
 			</div>
 		</div>

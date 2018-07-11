@@ -16,5 +16,5 @@ return [
     'Followers' => 'Подписчики',
     'Close' => 'Закрыть',
     'Profile editing' => 'Редактирование профиля',
-    'This feature will be added in the near future' => 'Эта функция будет добавлена в ближайшем будущем',
+    'Your data has been updated successfully' => 'Ваши данные успешно обновлены',
 ];

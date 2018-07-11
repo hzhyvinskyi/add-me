@@ -9,6 +9,7 @@ use frontend\modules\user\models\forms\PictureForm;
 use yii\web\UploadedFile;
 use yii\web\Response;
 use frontend\models\Post;
+use frontend\modules\user\models\forms\UpdateForm;
 
 class ProfileController extends Controller
 {
@@ -80,6 +81,34 @@ class ProfileController extends Controller
         }
 
         return $this->redirect(['/user/profile/view', 'nickname' => $currentUser->getNickname()]);
+    }
+
+    /**
+     * Updates user's data
+     * @return string|Response
+     */
+    public function actionUpdate()
+    {
+        if (Yii::$app->user->isGuest) {
+            return $this->redirect(['/user/default/login']);
+        }
+
+        /* @var $currentUser User */
+        $currentUser = Yii::$app->user->identity;
+
+        $model = new UpdateForm();
+
+        if ($model->load(Yii::$app->request->post()) && $model->updateUser($currentUser))
+        {
+            Yii::$app->session->setFlash('success', Yii::t('profile_view', 'Your data has been updated successfully'));
+
+            return $this->redirect(['/user/profile/view', 'nickname' => $currentUser->getNickname()]);
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+            'currentUser' => $currentUser,
+        ]);
     }
 
     /**
