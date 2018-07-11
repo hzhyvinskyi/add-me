@@ -34,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'attribute' => 'picture',
 				'format' => 'raw',
 				'value' => function ($user) {
+    			    /* @var $user \backend\models\User */
     			    return Html::img($user->getPicture(), ['width' => '200px']);
 				}
 			],
@@ -44,6 +45,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'about:ntext',
             'type',
             'nickname',
+			[
+			    'attribute' => 'roles',
+				'value' => function ($user) {
+    			    /* @var $user \backend\models\User */
+    			    return implode(', ', $user->getRoles());
+				}
+			],
         ],
     ]) ?>
 

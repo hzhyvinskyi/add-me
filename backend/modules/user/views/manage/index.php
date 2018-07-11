@@ -18,16 +18,32 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
+            [
+			    'attribute' => 'id',
+				'format' => 'raw',
+				'value' => function ($user) {
+    			    /* @var $user \backend\models\User */
+    			    return Html::a($user->getId(), ['view', 'id' => $user->getId()]);
+				}
+			],
             'username',
             [
 				'attribute' => 'picture',
 				'format' => 'raw',
 				'value' => function ($user) {
-    			    return Html::a(Html::img($user->getPicture(), ['width' => '100px']), ['view', 'id' => $user->id]);
+    				/* @var $user \backend\models\User */
+    			    return Html::a(Html::img($user->getPicture(), ['width' => '100px']), ['view', 'id' => $user->getId()]);
 				},
 			],
             'email:email',
             'created_at:datetime',
+			[
+				'attribute' => 'roles',
+				'value' => function ($user) {
+    			    /* @var $user \backend\models\User */
+    			    return implode(', ', $user->getRoles());
+				}
+			],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

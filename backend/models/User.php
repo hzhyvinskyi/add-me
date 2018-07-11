@@ -5,6 +5,7 @@ use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\web\IdentityInterface;
 
 /**
@@ -27,6 +28,10 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
 
+    const ROLE_ADMIN = 'admin';
+    const ROLE_MODERATOR = 'moderator';
+
+    public $roles;
 
     /**
      * {@inheritdoc}
@@ -54,7 +59,50 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+            ['roles', 'safe'],
         ];
+    }
+
+    public function __construct()
+    {
+        $this->on(self::EVENT_AFTER_UPDATE, [$this, 'saveRoles']);
+    }
+
+    /**
+     * Revokes old roles and assigns new
+     */
+    public function saveRoles()
+    {
+        Yii::$app->authManager->revokeAll($this->getId());
+
+        if (is_array($this->roles)) {
+            foreach ($this->roles as $roleName) {
+                $role = Yii::$app->authManager->getRole($roleName);
+
+                if ($role) {
+                    Yii::$app->authManager->assign($role, $this->getId());
+                }
+            }
+        }
+    }
+
+    /**
+     * Populates roles attribute with data from RBAC after record loaded from DB
+     */
+    public function afterFind()
+    {
+        $this->roles = $this->getRoles();
+    }
+
+    /**
+     * Gets user's roles from RBAC
+     * @return array
+     */
+    public function getRoles()
+    {
+        $roles = Yii::$app->authManager->getRolesByUser($this->getId());
+
+        return ArrayHelper::getColumn($roles, 'name', false);
     }
 
     /**
@@ -197,5 +245,17 @@ class User extends ActiveRecord implements IdentityInterface
         if ($this->picture) {
             return Yii::$app->storage->getFile($this->picture);
         }
+    }
+
+    /**
+     * Returns an array of available roles
+     * @return array
+     */
+    public function getRolesDropdown()
+    {
+        return [
+            self::ROLE_ADMIN => 'Admin',
+            self::ROLE_MODERATOR => 'Moderator',
+        ];
     }
 }

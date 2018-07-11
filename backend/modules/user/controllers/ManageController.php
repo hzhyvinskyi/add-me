@@ -1,5 +1,4 @@
 <?php
-
 namespace backend\modules\user\controllers;
 
 use Yii;
@@ -8,6 +7,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * ManageController implements the CRUD actions for User model.
@@ -24,6 +24,21 @@ class ManageController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['index', 'view'],
+                        'roles' => ['admin', 'moderator'],
+                    ],
+                    [
+                        'allow' => true,
+                        'actions' => ['update', 'delete'],
+                        'roles' => ['admin'],
+                    ],
                 ],
             ],
         ];
@@ -69,6 +84,8 @@ class ManageController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'User has been updated');
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -86,9 +103,13 @@ class ManageController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $user = $this->findModel($id);
 
-        return $this->redirect(['index']);
+        if ($user->delete()) {
+            Yii::$app->session->setFlash('success', 'User has been deleted');
+
+            return $this->redirect(['index']);
+        }
     }
 
     /**
