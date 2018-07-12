@@ -7,4 +7,5 @@ return [
     'Post already reported' => 'Скаргу уже відправлено',
     'Post reported' => 'Скарга відправлена',
     'Error occurred' => 'Виникла помилка',
+    'Nobody posted yet' => 'Ніхто ще не постив',
 ];

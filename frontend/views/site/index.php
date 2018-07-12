@@ -98,7 +98,7 @@ $this->registerMetaTag([
 						<?php endforeach; ?>
 					<?php else: ?>
 						<div class="col-md-12">
-							<p>Nobody posted yet</p>
+							<p><?= Yii::t('index', 'Nobody posted yet') ?></p>
 						</div>
 					<?php endif; ?>
 				</div>
