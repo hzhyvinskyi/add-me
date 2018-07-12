@@ -1,6 +1,7 @@
 <?php
 namespace frontend\modules\post\controllers;
 
+use Faker\Factory;
 use frontend\models\Feed;
 use Yii;
 use yii\web\Controller;

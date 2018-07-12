@@ -41,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
 				'contentOptions' => ['style' => 'width: 300px; max-width: 300px;'],
 				'value' => function ($post) {
     			    /* @var $post \backend\models\Post */
-    			    return nl2br(Html::encode(substr($post->description, 0, 35))) . '...';
+    			    return nl2br(Html::encode(substr($post->description, 0, 30))) . '...';
 				},
 			],
             'created_at:datetime',
