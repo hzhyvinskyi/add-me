@@ -8,4 +8,6 @@ return [
     'Body' => 'Текс сообщения',
     'Verification Code' => 'Код подтверждения',
     'Submit' => 'Отправить',
+    'Thank you for contacting us. We will respond to you as soon as possible.' => 'Благодарим вас за обращение к нам. Мы ответим вам как можно скорее.',
+    'There was an error sending your message.' => 'При отправке вашего сообщения произошла ошибка.',
 ];

@@ -1,7 +1,6 @@
 <?php
 namespace frontend\modules\user\models;
 
-use Yii;
 use frontend\models\User;
 
 /**
@@ -11,7 +10,6 @@ use frontend\models\User;
  * @property int $user_id
  * @property string $source
  * @property string $source_id
- *
  * @property User $user
  */
 class Auth extends \yii\db\ActiveRecord

@@ -7,4 +7,5 @@ return [
     'If you forgot your password you can ' => 'Якщо ви забули свій пароль, ви можете ',
     'reset it' => 'відновити його',
     'Login' => 'Вхід',
+    'Incorrect username or password.' => 'Неправильне ім\'я користувача або пароль.'
 ];

@@ -2,5 +2,5 @@
 return [
     'Edit a comment' => 'Редагувати коментар',
     'Save changes' => 'Зберегти зміни',
-    'Comment updated' => 'Коментар змінений',
+    'Comment updated' => 'Коментар змінено',
 ];

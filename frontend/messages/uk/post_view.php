@@ -12,6 +12,6 @@ return [
     'Updated:' => 'Оновлено:',
     'Leave a comment' => 'Залишити коментар',
     'Comment on this post' => 'Коментувати цей пост',
-    'Comment deleted' => 'Коментар був видалений',
-    'Comment has been added' => 'Коментар був доданий',
+    'Comment deleted' => 'Коментар було видалено',
+    'Comment has been added' => 'Коментар було додано',
 ];

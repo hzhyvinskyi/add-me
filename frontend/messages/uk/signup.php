@@ -5,4 +5,6 @@ return [
     'Username' => 'Ім\'я користувача',
     'Email' => 'Ел. адреса',
     'Password' => 'Пароль',
+    'This username has already been taken.' => 'Це ім\'я користувача уже зайнято.',
+    'This email address has already been taken.' => 'Ця електронна адреса уже зайнята.',
 ];

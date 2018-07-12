@@ -136,11 +136,11 @@ class DefaultController extends Controller
 		$model = new PasswordResetRequestForm();
 		if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 			if ($model->sendEmail()) {
-				Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+				Yii::$app->session->setFlash('success', Yii::t('request_password_reset', 'Check your email for further instructions.'));
 
 				return $this->goHome();
 			} else {
-				Yii::$app->session->setFlash('error', 'Sorry, we are unable to reset password for the provided email address.');
+				Yii::$app->session->setFlash('error', Yii::t('request_password_reset', 'Sorry, we are unable to reset password for the provided email address.'));
 			}
 		}
 
@@ -165,7 +165,7 @@ class DefaultController extends Controller
 		}
 
 		if ($model->load(Yii::$app->request->post()) && $model->validate() && $model->resetPassword()) {
-			Yii::$app->session->setFlash('success', 'New password saved.');
+			Yii::$app->session->setFlash('success', Yii::t('reset_password', 'New password saved.'));
 
 			return $this->goHome();
 		}
