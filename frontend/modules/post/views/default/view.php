@@ -6,6 +6,7 @@
 /* @var $model \frontend\modules\post\models\forms\CommentForm */
 /* @var $comments \frontend\models\Comment */
 /* @var $commentCount \frontend\models\Feed */
+/* @var $viewCount \frontend\models\Post */
 
 use yii\helpers\Url;
 use yii\helpers\Html;
@@ -19,19 +20,23 @@ $this->title = 'Post #' . $post->getId();
 
 <div class="page-posts no-padding">
 	<div class="row">
-		<div class="page page-post col-sm-8 col-xs-8 post-82">
+		<div class="page page-post col-sm-8 col-xs-12">
 
 			<div class="blog-posts blog-posts-large">
 
 				<div class="row">
 
 					<!-- feed item -->
-					<article class="post col-sm-18 col-xs-18">
+					<article class="post col-xs-12">
 						<div class="post-meta">
 							<div class="post-title">
 								<img src="<?= $post->user->getPicture() ?>" class="author-image">
 								<div class="author-name">
 									<a href="<?= Url::to(['/user/profile/view', 'nickname' => $post->user->getNickname()]) ?>"><?= Html::encode($post->user->username) ?></a>
+								</div>
+								<div class="post__counter">
+									<i class="glyphicon glyphicon-user"></i> <?= $post->viewCountByUser($currentUser) ?>&nbsp;&nbsp;
+									<i class="glyphicon glyphicon-eye-open"></i> <?= $post->viewCount() ?>
 								</div>
 							</div>
 						</div>
@@ -75,7 +80,7 @@ $this->title = 'Post #' . $post->getId();
 				</div>
 				<div class="row">
 
-					<div class="col">
+					<div class="col-md-12">
 
                         <?php if ($comments): ?>
 
@@ -139,7 +144,7 @@ $this->title = 'Post #' . $post->getId();
 
 				<div class="row">
 
-					<div class="col">
+					<div class="col-md-12">
 
                         <?php if ($currentUser): ?>
 
@@ -159,14 +164,15 @@ $this->title = 'Post #' . $post->getId();
 			</div>
 		</div>
 
-		<div class="col-md-3 col-md-offset-1">
+		<div class="col-xs-12 col-sm-3 col-sm-offset-1">
             <?= NewsList::widget(['showLimit' => 15]) ?>
 		</div>
 
 	</div>
 </div>
 
-<?php $this->registerJsFile('@web/js/likes.js', [
+<?php
+$this->registerJsFile('@web/js/likes.js', [
     'depends' => JqueryAsset::className()
 ]);
 
@@ -174,4 +180,3 @@ $this->registerJsFile('@web/js/complaints.js', [
     'depends' => JqueryAsset::className(),
 ]);
 ?>
-

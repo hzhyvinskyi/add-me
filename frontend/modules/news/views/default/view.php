@@ -21,6 +21,7 @@ use frontend\widgets\newsList\NewsList;
         </p>
 		<br>
         <span>Author: <?= Html::encode($item->author) ?></span>
+		<br><br><br>
     </div>
     <div class="col-md-3 col-md-offset-1">
 		<?= NewsList::widget(['showLimit' => 10]) ?>

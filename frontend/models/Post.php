@@ -192,6 +192,41 @@ class Post extends \yii\db\ActiveRecord
     }
 
     /**
+ * Increments post views by one and returns view count
+ * @return mixed
+ */
+    public function viewCount()
+    {
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+
+        $key = "post:{$this->getId()}:views";
+
+        $redis->incr($key);
+
+        return $redis->get($key);
+    }
+
+    /**
+     * Counts views only if user is a new one
+     * @param User $user
+     * @return mixed
+     */
+    public function viewCountByUser(User $user)
+    {
+        /* @var $redis \yii\redis\Connection */
+        $redis = Yii::$app->redis;
+
+        $key = "post:{$this->getId()}:user-views";
+
+        if (!$redis->sismember($key, $user->getId())) {
+            $redis->sadd($key, $user->getId());
+        }
+
+        return $redis->scard($key);
+    }
+
+    /**
      * Gets author of the post
      * @return \yii\db\ActiveQuery
      */

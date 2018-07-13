@@ -1,6 +1,6 @@
 <?php
 return [
-    'is the resource-community online for photo sharing' => 'це ресурс-співтовариство онлайн для обміну фотографіями',
+    'is the resource-community online for photo sharing' => '- це онлайн ресурс для обміну фотографіями',
     'The closest example is the social network' => 'Найближчий зразок - соціальна мережа',
     'The purpose of the resource is to maintain photo diaries online, the opportunity to make friends and make acquaintances, share photos and follow the news of friends' => 'Мета ресурсу - ведення фото-щоденників онлайн, можливість дружити і заводити знайомства, ділитися фотографіями і стежити за новинами знайомих',
     'Main features:' => 'Основні можливості:',
@@ -15,4 +15,11 @@ return [
     'Search by news' => 'Пошук по новинах',
     'Possibility to send complaints to publications of other participants' => 'Можливість відправляти скарги на публікації інших учасників',
     'Administrative panel for full control' => 'Адміністративна панель для повного управління',
+    'Our advantages:' => 'Наші переваги:',
+    'Stability' => 'Стабільність',
+    'Reliability' => 'Надійність',
+    'Security' => 'Безпека',
+    'Advanced technology' => 'Просунута технологія',
+    'Best practices' => 'Кращі практики',
+    'Innovation' => 'Новаторство',
 ];

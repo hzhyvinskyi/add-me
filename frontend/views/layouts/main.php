@@ -30,30 +30,32 @@ FontAwesomeAsset::register($this);
 		<header>
 			<div class="header-top">
 				<div class="container">
-					<div class="col-md-4 col-sm-4 col-md-offset-4 col-sm-offset-4 brand-logo">
-						<h1>
-							<a href="<?= Url::to(['/site/index']) ?>">
-								<img src="/img/logo.png" alt="Add me">
-							</a>
-						</h1>
-					</div>
-					<div class="col-md-4 col-sm-4 navicons-topbar">
-						<ul>
-							<li class="blog-search">
-								<a href="<?= Url::to(['/search/default']) ?>" title="Search">
-									<i class="fa fa-search"></i>
+					<div class="row">
+						<div class="col-sm-4 col-xs-6 col-sm-offset-4 brand-logo">
+							<h1>
+								<a href="<?= Url::to(['/site/index']) ?>">
+									<img src="/img/logo.png" alt="Add me">
 								</a>
-							</li>
-							<li>
-								<form action="/site/language" method="post" id="site-language-form">
-									<select name="language" class="language">
-										<option value="en-US" <?php if (Yii::$app->language == 'en-US') echo 'selected' ?>>English</option>
-										<option value="ru-RU" <?php if (Yii::$app->language == 'ru-RU') echo 'selected' ?>>Русский</option>
-										<option value="uk-UA" <?php if (Yii::$app->language == 'uk-UA') echo 'selected' ?>>Українська</option>
-									</select>
-								</form>
-							</li>
-						</ul>
+							</h1>
+						</div>
+						<div class="col-sm-4 col-xs-6 navicons-topbar">
+							<ul>
+								<li class="blog-search">
+									<a href="<?= Url::to(['/search/default']) ?>" title="Search">
+										<i class="fa fa-search"></i>
+									</a>
+								</li>
+								<li>
+									<form action="/site/language" method="post" id="site-language-form">
+										<select name="language" class="language">
+											<option value="en-US" <?php if (Yii::$app->language == 'en-US') echo 'selected' ?>>English</option>
+											<option value="ru-RU" <?php if (Yii::$app->language == 'ru-RU') echo 'selected' ?>>Русский</option>
+											<option value="uk-UA" <?php if (Yii::$app->language == 'uk-UA') echo 'selected' ?>>Українська</option>
+										</select>
+									</form>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
