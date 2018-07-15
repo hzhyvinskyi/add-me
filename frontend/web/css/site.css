@@ -194,6 +194,16 @@ a.desc:after {
     .header-top .container {
         text-align: center;
     }
+
+    .page-posts .post-bottom .date-single {
+        border:none;
+    }
+
+    .post .post-report {
+        border:none;
+    }
+
+    .
 }
 
 @media screen and (max-width:460px) {
@@ -203,5 +213,21 @@ a.desc:after {
 
     .about__title {
         display:block;
+    }
+
+    .page-post .post-title .post__counter {
+        display:none;
+    }
+}
+
+@media screen and (max-width:350px) {
+    .page-posts .page-post .post-bottom .post-likes .button-like {
+        display:block;
+        width:150px;
+        margin:15px auto;
+    }
+
+    .page-posts .blog-posts {
+        margin: 35px 0;
     }
 }

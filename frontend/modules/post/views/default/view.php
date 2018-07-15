@@ -34,10 +34,12 @@ $this->title = 'Post #' . $post->getId();
 								<div class="author-name">
 									<a href="<?= Url::to(['/user/profile/view', 'nickname' => $post->user->getNickname()]) ?>"><?= Html::encode($post->user->username) ?></a>
 								</div>
-								<div class="post__counter">
-									<i class="glyphicon glyphicon-user"></i> <?= $post->viewCountByUser($currentUser) ?>&nbsp;&nbsp;
-									<i class="glyphicon glyphicon-eye-open"></i> <?= $post->viewCount() ?>
-								</div>
+								<?php if ($currentUser): ?>
+									<div class="post__counter">
+										<i class="glyphicon glyphicon-user"></i> <?= $post->viewCountByUser($currentUser) ?>&nbsp;&nbsp;
+										<i class="glyphicon glyphicon-eye-open"></i> <?= $post->viewCount() ?>
+									</div>
+								<?php endif; ?>
 							</div>
 						</div>
 						<div class="post-type-image">
@@ -54,18 +56,20 @@ $this->title = 'Post #' . $post->getId();
 								<i class="fa fa-lg fa-heart-o"></i>
 								<span class="likes-count"><?= $post->countLikes() ?></span>
 								&nbsp;&nbsp;&nbsp;
-								<a href="#" class="btn btn-default button-like <?= ($currentUser->likesPost($post->getId())) ? "display-none" : "" ?>" data-id="<?= $post->getId() ?>">
+								<?php if ($currentUser): ?>
+									<a href="#" class="btn btn-default button-like <?= ($currentUser->likesPost($post->getId())) ? "display-none" : "" ?>" data-id="<?= $post->getId() ?>">
                                     <?= Yii::t('post_view', 'Like') ?>&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
 								</a>
-								<a href="#" class="btn btn-default button-unlike <?= ($currentUser->likesPost($post->getId())) ? "" : "display-none" ?>" data-id="<?= $post->getId() ?>">
+									<a href="#" class="btn btn-default button-unlike <?= ($currentUser->likesPost($post->getId())) ? "" : "display-none" ?>" data-id="<?= $post->getId() ?>">
                                     <?= Yii::t('post_view', 'Unlike') ?>&nbsp;&nbsp;<span class="glyphicon glyphicon-thumbs-down"></span>
 								</a>
+								<?php endif; ?>
 							</div>
 							<div class="post-date date-single">
 								<span><?= Yii::$app->formatter->asDatetime($post->created_at) ?></span>
 							</div>
 							<div class="post-report">
-                                <?php if (!$post->isReported($currentUser)): ?>
+                                <?php if (isset($currentUser) && !$post->isReported($currentUser)): ?>
 									<a href="#" class="btn btn-default button-complain" data-id="<?= $post->getId() ?>">
                                         <?= Yii::t('post_view', 'Report post') ?> <i class="fa fa-cog fa-spin fa-fw icon-preloader" style="display: none"></i>
 									</a>

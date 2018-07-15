@@ -4,15 +4,36 @@ namespace frontend\modules\user\controllers;
 use Yii;
 use yii\web\Controller;
 use frontend\models\User;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use frontend\modules\user\models\forms\PictureForm;
 use yii\web\UploadedFile;
 use yii\web\Response;
 use frontend\models\Post;
 use frontend\modules\user\models\forms\UpdateForm;
+use yii\filters\AccessControl;
 
 class ProfileController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['view', 'upload-picture', 'delete-picture', 'update', 'subscribe', 'unsubscribe'],
+                        'roles' => ['@'],
+                    ],
+                ],
+                'denyCallback' => function() {
+                    throw new ForbiddenHttpException(Yii::t('error', 'You are not allowed to perform this action.'));
+                }
+            ],
+        ];
+    }
+
     /**
      * @param $nickname
      * @return string
@@ -67,10 +88,6 @@ class ProfileController extends Controller
      */
     public function actionDeletePicture()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-
         /* @var $currentUser User */
         $currentUser = Yii::$app->user->identity;
 
@@ -89,10 +106,6 @@ class ProfileController extends Controller
      */
     public function actionUpdate()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-
         /* @var $currentUser User */
         $currentUser = Yii::$app->user->identity;
 
@@ -134,10 +147,6 @@ class ProfileController extends Controller
      */
     public function actionSubscribe($id)
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-
         /* @var $currentUser User */
         $currentUser = Yii::$app->user->identity;
 
@@ -155,10 +164,6 @@ class ProfileController extends Controller
      */
     public function actionUnsubscribe($id)
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-
         /* @var $currentUser User */
         $currentUser = Yii::$app->user->identity;
 

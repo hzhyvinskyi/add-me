@@ -3,6 +3,7 @@ namespace frontend\modules\post\controllers;
 
 use Yii;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
 use yii\web\NotFoundHttpException;
@@ -11,22 +12,38 @@ use frontend\models\Post;
 use frontend\models\Comment;
 use frontend\modules\post\models\forms\PostForm;
 use frontend\modules\post\models\forms\CommentForm;
+use yii\filters\AccessControl;
 
 /**
  * Default controller for the `post` module
  */
 class DefaultController extends Controller
 {
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'actions' => ['create', 'view', 'like', 'unlike', 'update-comment', 'delete-comment', 'complain'],
+                        'roles' => ['@'],
+                    ],
+                ],
+                'denyCallback' => function() {
+                    throw new ForbiddenHttpException(Yii::t('error', 'You are not allowed to perform this action.'));
+                }
+            ],
+        ];
+    }
+
     /**
      * Renders the create view for the module
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-
         $model = new PostForm(Yii::$app->user->identity);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -83,10 +100,6 @@ class DefaultController extends Controller
      */
     public function actionLike()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         /* @var $currentUser User */
@@ -110,10 +123,6 @@ class DefaultController extends Controller
      */
     public function actionUnlike()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         /* @var $currentUser User */
@@ -138,10 +147,6 @@ class DefaultController extends Controller
      */
     public function actionUpdateComment($id)
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-
         /* @var $currentUser User */
         $currentUser = Yii::$app->user->identity;
 
@@ -175,10 +180,6 @@ class DefaultController extends Controller
      */
     public function actionDeleteComment($id)
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-
         /* @var $currentUser User */
         $currentUser = Yii::$app->user->identity;
 
@@ -203,10 +204,6 @@ class DefaultController extends Controller
      */
     public function actionComplain()
     {
-        if (Yii::$app->user->isGuest) {
-            return $this->redirect(['/user/default/login']);
-        }
-
         Yii::$app->response->format = Response::FORMAT_JSON;
 
         $id = Yii::$app->request->post('id');
